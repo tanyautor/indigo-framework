@@ -13,16 +13,17 @@ Engine::~Engine()
 
 void Engine::init()
 {
-	window = new Window(1280, 768, "bomb voyage stole me wallet >:(", false);
-	renderer = new Renderer();
+	window = std::make_shared<Window>(1280, 768, "bomb voyage stole me wallet >:(", false);
+	renderer = std::make_shared<Renderer>();
 
-	if (!FileHandler::load_bin("editor_camera", &editor_camera, sizeof(Camera)))
+	active_camera = std::make_shared<Camera>();
+	if (!FileHandler::load_bin("editor_camera", active_camera.get(), sizeof(Camera)))
 	{
-		editor_camera.projection = glm::perspective(glm::radians(45.f), (float)window->get_window_size().x / (float)window->get_window_size().y, 0.1f, 100.f);
-		editor_camera.transform.SetTranslation(glm::vec3(0, 10, 20));
-		editor_camera.transform.SetRotation(glm::vec3(0, 0, -1));
+		active_camera->projection = glm::perspective(glm::radians(45.f), (float)window->get_window_size().x / (float)window->get_window_size().y, 0.1f, 100.f);
+		active_camera->transform.SetTranslation(glm::vec3(0, 10, 20));
+		active_camera->transform.SetRotation(glm::vec3(0, 0, -1));
 	}
-	editor_camera.transform.name = "Editor Camera";
+	active_camera->transform.name = "Editor Camera";
 
 	for (const auto& module : modules) { module->init(); }
 }
@@ -61,18 +62,14 @@ void Engine::run()
 
 void Engine::shutdown()
 {
-	delete window;
-	delete renderer;
-
 	for (size_t i = 0; i < modules.size(); i++)
 	{
 		modules[i]->shutdown();
-		delete modules[i];
 	}
 
 	bool empty = modules.empty();
 
-	FileHandler::save_bin("editor_camera", &editor_camera, sizeof(Camera));
+	FileHandler::save_bin("editor_camera", active_camera.get(), sizeof(Camera));
 }
 
 void Engine::tick(float _delta)

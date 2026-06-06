@@ -41,10 +41,10 @@ public:
 	template<typename Derived, typename ...Args>
 	void register_subsystem(const Args&... _args)
 	{
-		static_assert(!std::is_class_v<SubsystemBase> || std::is_base_of_v<SubsystemBase, Derived>);
+		static_assert(!std::is_class_v<Subsystem> || std::is_base_of_v<Subsystem, Derived>);
 		
 		subsystems.push_back(new Derived(_args...));
-		std::sort(subsystems.begin(), subsystems.end(), [](SubsystemBase* _a, SubsystemBase* _b) { return _a->priority < _b->priority; });
+		std::sort(subsystems.begin(), subsystems.end(), [](Subsystem* _a, Subsystem* _b) { return _a->priority < _b->priority; });
 	}
 
 #pragma warning(push)
@@ -52,9 +52,9 @@ public:
 	template<typename Derived>
 	Derived* get_subsystem()
 	{
-		static_assert(!std::is_class_v<SubsystemBase> || std::is_base_of_v<SubsystemBase, Derived>);
+		static_assert(!std::is_class_v<Subsystem> || std::is_base_of_v<Subsystem, Derived>);
 		
-		for(SubsystemBase*& system : subsystems)
+		for(Subsystem*& system : subsystems)
 		{
 			Derived* ret = dynamic_cast<Derived*>(system);
 			if(ret != nullptr)
@@ -62,7 +62,7 @@ public:
 				return ret;
 			}
 		}
-		tanlog::log(tanlog::FATAL, "could not find subsystem of type {}", typeid(Derived).name());
+		log(FATAL, "could not find subsystem of type {}", typeid(Derived).name());
 		// this will likely crash :3
 	}
 #pragma warning( pop )
@@ -74,7 +74,7 @@ private:
 	struct Impl;
 	std::unique_ptr<Impl> pImpl;
 
-	std::vector<SubsystemBase*> subsystems;
+	std::vector<Subsystem*> subsystems;
 
 	struct Framebuffer* default_framebuffer{ nullptr };
 };

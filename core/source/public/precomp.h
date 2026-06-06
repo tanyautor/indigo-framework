@@ -37,6 +37,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/glm.hpp"
 
+using namespace glm;
+
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/matrix_inverse.hpp"
 #include "glm/gtx/quaternion.hpp"
@@ -53,40 +55,41 @@
 #include "tinyobjloader/tiny_obj_loader.h"
 
 // utils
-#include "common.h"
-#include "log.h"
-#include "timer.h"
-#include "file_handler.h"
-
-// general non-engine
-#include "transform.h"
+#include "utils/types.h"
+#include "utils/log.h"
+using namespace indigo_log;
+#include "utils/timer.h"
+#include "utils/file_handler.h"
+#include "utils/editor_camera_controller.h"
 
 // graphics
 #include "graphics/shader.h"
 #include "graphics/subsystem.h"
 #include "graphics/renderer.h"
 
-// assets
-#include "graphics/assets/components.h"
-#include "graphics/assets/mesh.h"
-#include "graphics/assets/model.h"
-#include "graphics/assets/editor_camera_controller.h"
+// common assets components
+#include "common/transform.h"
+#include "common/module.h"
+#include "common/camera.h"
+#include "common/light.h"
+#include "common/texture.h"
+#include "common/material.h"
+#include "common/mesh.h"
 
 // backend specific, this will be quite useless...
 #ifdef BACKEND_OPENGL
 
-#include "device/gl/graphics_gl.h"
-#include "device/gl/uniforms_gl.h"
+#include "graphics/gl/graphics_gl.h"
+#include "graphics/gl/uniforms_gl.h"
 
 #endif
 
 //render subsystems -> game code actually
 #include "graphics/subsystem/skydome_trace.h"
-#include "graphics/subsystem/model_renderer.h"
+#include "graphics/subsystem/mesh_renderer.h"
 
 // engine
 #include "input.h"
 #include "graphics/graphics.h"
-#include "module.h"
 #include "engine.h"
 

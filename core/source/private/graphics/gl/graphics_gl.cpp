@@ -3,7 +3,7 @@
 // callbacks
 static void error_callback(int error, const char* description)
 {
-    tanlog::log(tanlog::ERROR, "glfw msg: %s", description);
+    log(ERROR, "glfw msg: %s", description);
 }
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -29,7 +29,7 @@ GLenum glCheckError_(const char* file, int line)
         case GL_INVALID_FRAMEBUFFER_OPERATION: error = "INVALID_FRAMEBUFFER_OPERATION"; break;
         }
 
-        tanlog::log(tanlog::ERROR, "{} | {} ({})", error, file, line);
+        log(ERROR, "{} | {} ({})", error, file, line);
     }
     return errorCode;
 }
@@ -154,28 +154,28 @@ bool LoadObjAndConvert(float bmin[3], float bmax[3],
     bool ret = tinyobj::LoadObj(&inattrib, &inshapes, &materials, &warn, &err, filename,
         base_dir.c_str());
     if (!warn.empty()) {
-        tanlog::log(tanlog::WARNING, warn);
+        log(WARNING, warn);
     }
     if (!err.empty()) {
-        tanlog::log(tanlog::ERROR, err);
+        log(ERROR, err);
     }
 
     if (!ret) {
-        tanlog::log(tanlog::ERROR, filename);
+        log(ERROR, filename);
         return false;
     }
 
-    tanlog::log(tanlog::INFO, "# of vertices  = {}", (int)(inattrib.vertices.size()) / 3);
-    tanlog::log(tanlog::INFO, "# of normals  = {}", (int)(inattrib.normals.size()) / 3);
-    tanlog::log(tanlog::INFO, "# of texcoords  = {}", (int)(inattrib.texcoords.size()) / 2);
-    tanlog::log(tanlog::INFO, "# of materials  = {}", (int)(materials.size()));
-    tanlog::log(tanlog::INFO, "# of shapes  = {}", (int)(inshapes.size()));
+    log(INFO, "# of vertices  = {}", (int)(inattrib.vertices.size()) / 3);
+    log(INFO, "# of normals  = {}", (int)(inattrib.normals.size()) / 3);
+    log(INFO, "# of texcoords  = {}", (int)(inattrib.texcoords.size()) / 2);
+    log(INFO, "# of materials  = {}", (int)(materials.size()));
+    log(INFO, "# of shapes  = {}", (int)(inshapes.size()));
 
     // Append `default` material
     materials.push_back(tinyobj::material_t());
 
     for (size_t i = 0; i < materials.size(); i++) {
-        tanlog::log(tanlog::INFO, "material[{}].diffuse_texname = {}",
+        log(INFO, "material[{}].diffuse_texname = {}",
             int(i), materials[i].diffuse_texname.c_str());
     }
 
@@ -197,16 +197,16 @@ bool LoadObjAndConvert(float bmin[3], float bmax[3],
                         texture_filename = base_dir + mp->diffuse_texname;
                         if (!FileExists(texture_filename)) {
 
-                            tanlog::log(tanlog::FATAL, "Unable to find file: {}", mp->diffuse_texname);
+                            log(FATAL, "Unable to find file: {}", mp->diffuse_texname);
                         }
                     }
 
                     unsigned char* image =
                         stbi_load(texture_filename.c_str(), &w, &h, &comp, STBI_default);
                     if (!image) {
-                        tanlog::log(tanlog::FATAL, "Unable to load texture: {}", texture_filename);
+                        log(FATAL, "Unable to load texture: {}", texture_filename);
                     }
-                    tanlog::log(tanlog::INFO, "Loaded texture: {}, w = {}, h = {}, comp = {}", texture_filename, w, h, comp);
+                    log(INFO, "Loaded texture: {}, w = {}, h = {}, comp = {}", texture_filename, w, h, comp);
 
                     glGenTextures(1, &texture_id);
                     glBindTexture(GL_TEXTURE_2D, texture_id);
@@ -397,8 +397,8 @@ bool LoadObjAndConvert(float bmin[3], float bmax[3],
             }
         }
     }
-    tanlog::log(tanlog::INFO, "bmin = {}, {}, {}", bmin[0], bmin[1], bmin[2]);
-    tanlog::log(tanlog::INFO, "bmax = {}, {}, {}", bmax[0], bmax[1], bmax[2]);
+    log(INFO, "bmin = {}, {}, {}", bmin[0], bmin[1], bmin[2]);
+    log(INFO, "bmax = {}, {}, {}", bmax[0], bmax[1], bmax[2]);
 
     return true;
 }
@@ -407,8 +407,8 @@ Framebuffer::Framebuffer(const char* _rdg_label) : rdg_label{"BoringBuffer_>:("}
 {
     glGenFramebuffers(1, &fbo);
 
-    width = engine.get_window().get_window_size().x;
-    height = engine.get_window().get_window_size().y;
+    width = engine.get_window()->get_window_size().x;
+    height = engine.get_window()->get_window_size().y;
 
     if(_rdg_label)
     {
@@ -441,7 +441,7 @@ bool Framebuffer::init_color_buffer(uint32 _access)
 {
     if(color_buffer.has_value())
     {
-        tanlog::log(tanlog::ERROR, "trying to init_texturebuffer twice");
+        log(ERROR, "trying to init_texturebuffer twice");
         return false;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -496,7 +496,7 @@ bool Framebuffer::init_depth_stencil(uint32 _access)
 {
     if (depth_stencil.has_value())
     {
-        tanlog::log(tanlog::ERROR, "trying to init_depth_stencil twice");
+        log(ERROR, "trying to init_depth_stencil twice");
         return false;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -566,15 +566,15 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     // Init GLFW
     if(!glfwInit())
     {
-        tanlog::log(tanlog::FATAL, "glfwInit failed");
+        log(FATAL, "glfwInit failed");
         assert(false);
     }
 
-    tanlog::log(tanlog::INFO, "GLFW version {}.{}.{}", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION);
+    log(INFO, "GLFW version {}.{}.{}", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION);
 
     if (!_title)
     {
-        tanlog::log(tanlog::FATAL, "_title is a nullptr");
+        log(FATAL, "_title is a nullptr");
         assert(false);
     }
 
@@ -603,7 +603,7 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
 
     if (!pImpl->window)
     {
-        tanlog::log(tanlog::FATAL, "window creation failed");
+        log(FATAL, "window creation failed");
         glfwTerminate();
         assert(false);
     }
@@ -627,11 +627,11 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     int major = glfwGetWindowAttrib(pImpl->window, GLFW_CONTEXT_VERSION_MAJOR);
     int minor = glfwGetWindowAttrib(pImpl->window, GLFW_CONTEXT_VERSION_MINOR);
     int revision = glfwGetWindowAttrib(pImpl->window, GLFW_CONTEXT_REVISION);
-    tanlog::log(tanlog::INFO, "GLFW OpenGL context version {}.{}.{}", major, minor, revision);
+    log(INFO, "GLFW OpenGL context version {}.{}.{}", major, minor, revision);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        tanlog::log(tanlog::FATAL, "GLAD failed to initialize OpenGL context");
+        log(FATAL, "GLAD failed to initialize OpenGL context");
         assert(false);
     }
 
@@ -640,11 +640,11 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     const auto* const version = reinterpret_cast<const char*>(glGetString(GL_VERSION));
     const auto* const shaderVersion = reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-    tanlog::log(tanlog::INFO, "Initialized GLFW");
-    tanlog::log(tanlog::INFO, "OpenGL Vendor {}", vendor);
-    tanlog::log(tanlog::INFO, "OpenGL Renderer {}", renderer);
-    tanlog::log(tanlog::INFO, "OpenGL Version {}", version);
-    tanlog::log(tanlog::INFO, "OpenGL Shader Version {}", shaderVersion);
+    log(INFO, "Initialized GLFW");
+    log(INFO, "OpenGL Vendor {}", vendor);
+    log(INFO, "OpenGL Renderer {}", renderer);
+    log(INFO, "OpenGL Version {}", version);
+    log(INFO, "OpenGL Shader Version {}", shaderVersion);
     
     float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor()); // Valid on GLFW 3.3+ only
 

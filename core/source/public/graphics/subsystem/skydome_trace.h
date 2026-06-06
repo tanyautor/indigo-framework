@@ -4,10 +4,10 @@ struct CameraDataUBO;
 struct TransformUBO;
 struct Framebuffer;
 
-class SkydomeTrace : public SubsystemBase
+class SkydomeTrace : public Subsystem
 {
 public:
-	SkydomeTrace(Camera* _camera);
+	SkydomeTrace();
 	virtual ~SkydomeTrace();
 
 	virtual void base_pass() override;
@@ -18,8 +18,7 @@ public:
 	void screen_pass_trace();
 
 private:
-	Camera* camera{ nullptr };
-	Shader skydome_trace_shader;
+	Shader skydome_trace;
 
 	uint32 skydome;
 	uint32 skydome_width;

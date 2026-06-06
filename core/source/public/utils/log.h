@@ -1,6 +1,6 @@
 #pragma once
 
-namespace tanlog
+namespace indigo_log
 {
 	enum Severity : uint32
 	{
@@ -20,16 +20,16 @@ namespace tanlog
 	{
 		switch (_ser)
 		{
-		case tanlog::INFO:
+		case indigo_log::INFO:
 			return green;
 			break;
-		case tanlog::WARNING:
+		case indigo_log::WARNING:
 			return yellow;
 			break;
-		case tanlog::ERROR:
+		case indigo_log::ERROR:
 			return red;
 			break;
-		case tanlog::FATAL:
+		case indigo_log::FATAL:
 			return magenta;
 			break;
 		default:
@@ -42,7 +42,7 @@ namespace tanlog
 	static inline void log(Severity _ser, FormatString _c_string, const Args&... _args)
 	{
 		std::string severity(magic_enum::enum_name(_ser));
-		printf("TanLog [%s%s%s] ", GetColor(_ser), severity.c_str(), reset);
+		printf("indigo_log [%s%s%s] ", GetColor(_ser), severity.c_str(), reset);
 		fmt::print(fmt::runtime(_c_string), _args...);
 		printf("\n");
 	}

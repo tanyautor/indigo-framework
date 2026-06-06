@@ -4,28 +4,19 @@ struct CameraDataUBO;
 struct TransformUBO;
 struct Framebuffer;
 
-class ModelRenderer : public SubsystemBase
+class MeshRenderer : public Subsystem
 {
 public:
-	ModelRenderer(Camera* _camera);
-	virtual ~ModelRenderer();
+	MeshRenderer();
+	virtual ~MeshRenderer();
 
 	virtual void base_pass() override;
-	virtual void post_process_pass() override;
+	//virtual void post_process_pass() override;
 
-	virtual void tick(float _delta_time) override
-	{
-		for (auto& model : models)
-		{
-			model.tick(_delta_time);
-		}
-	}
-
-	std::vector<Model> models;
+	std::vector<Mesh> meshes;
 
 private:
-	Camera* camera{ nullptr };
-	Shader base_shader;
+	Shader forward_pass;
 
 	// uniforms
 	uint32  camera_ubo{ 0 };
@@ -36,7 +27,7 @@ private:
 
 	uint32 directional_light_ubo{ 0 };
 	DirectionalLightUBO* directional_light_data{ nullptr };
-
+	
 	uint32 point_light_ubo{ 0 };
 	PointLightUBO* point_light_data{ nullptr };
 };

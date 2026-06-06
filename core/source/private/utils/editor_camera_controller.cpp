@@ -6,13 +6,12 @@ EditorCameraController::EditorCameraController()
 
 EditorCameraController::~EditorCameraController()
 {
-	camera = nullptr;
 }
 
-void EditorCameraController::init(Camera* _to_control)
+void EditorCameraController::init()
 { 
-	camera = _to_control;
-
+	auto camera = engine.get_active_camera();
+	
 	// set yaw and pitch
 	pitch = glm::pitch(camera->transform.GetRotation());
 	yaw = glm::yaw(camera->transform.GetRotation()) + glm::pi<float>();
@@ -23,7 +22,7 @@ void EditorCameraController::init(Camera* _to_control)
 
 void EditorCameraController::update(float _delta)
 {
-	if (!camera) return;
+	auto camera = engine.get_active_camera();
 
 	ImGui::Begin("Camera");
 	ImGui::SliderFloat("speed", &speed, 0.1f, 5.f);

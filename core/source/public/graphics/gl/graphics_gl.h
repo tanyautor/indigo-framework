@@ -59,7 +59,6 @@ static void draw_quad(uint32 use_texture = 0)
     }
 
     screen_pass.use_shader();
-    //glUniform1i(glGetUniformLocation(screen_pass.id(), "screenTexture"), 0);
 
     glBindVertexArray(quadVAO);
     glDisable(GL_DEPTH_TEST);

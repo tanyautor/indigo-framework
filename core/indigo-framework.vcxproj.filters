@@ -24,37 +24,13 @@
     <ClCompile Include="source\private\graphics\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\private\graphics\assets\gl\mesh_gl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\private\graphics\assets\gl\model_gl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\private\graphics\subsystem\gl\model_renderer_gl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\private\device\gl\graphics_gl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\private\device\gl\input_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\private\device\gl\renderer_gl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\private\device\gl\shader_gl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\private\graphics\editor_camera_controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\private\transform.cpp">
+    <ClCompile Include="source\private\utils\editor_camera_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\private\engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\private\graphics\subsystem\gl\skydome_trace_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="external\include\stb_image\stb_vorbis.c">
@@ -63,82 +39,16 @@
     <ClCompile Include="source\private\precomp_impls.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\fmt\src\fmt.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\fmt\src\format.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\fmt\src\os.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="external\include\glm\detail\glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="external\include\glm\glm.cppm">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_allegro5.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_android.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_dx9.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_dx10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_dx11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_dx12.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="external\include\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_glut.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_opengl2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="external\include\imgui\backends\imgui_impl_opengl3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_sdl2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_sdl3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_sdlgpu3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_sdlrenderer2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_sdlrenderer3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_vulkan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_wgpu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\backends\imgui_impl_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\misc\cpp\imgui_stdlib.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\misc\fonts\binary_to_compressed_c.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\imgui\misc\freetype\imgui_freetype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="external\include\imgui\imgui.cpp">
@@ -171,82 +81,28 @@
     <ClCompile Include="external\include\ImGuizmo\ImSequencer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\app_minimal\app_minimal_main.cpp">
+    <ClCompile Include="source\private\graphics\gl\mesh_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\app_minimal\app_minimal_tests.cpp">
+    <ClCompile Include="source\private\graphics\gl\model_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_capture_tool.cpp">
+    <ClCompile Include="source\private\graphics\gl\graphics_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_context.cpp">
+    <ClCompile Include="source\private\graphics\gl\renderer_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_coroutine.cpp">
+    <ClCompile Include="source\private\graphics\gl\shader_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_engine.cpp">
+    <ClCompile Include="source\private\graphics\gl\subsystem\mesh_renderer_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_exporters.cpp">
+    <ClCompile Include="source\private\graphics\gl\subsystem\skydome_trace_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_perftool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_ui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\thirdparty\implot\implot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\thirdparty\implot\implot_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\thirdparty\implot\implot_items.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_test_suite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_core.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_docking.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_inputs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_nav.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_perf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_tables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_viewports.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_tests_widgets_inputtext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\ImReflect\imgui\imgui_test_engine\shared\imgui_app.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\tinyobjloader\loader_example.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="external\include\tinyobjloader\tiny_obj_loader.cc">
+    <ClCompile Include="source\private\common\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -254,19 +110,10 @@
     <ClInclude Include="source\public\device\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\public\utils\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\public\utils\log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\public\utils\timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\precomp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\graphics\subsystem\model_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\public\graphics\graphics.h">
@@ -281,31 +128,7 @@
     <ClInclude Include="source\public\graphics\subsystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\public\device\gl\graphics_gl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\device\gl\uniforms_gl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\graphics\assets\editor_camera_controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\graphics\assets\mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\graphics\assets\model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\graphics\assets\components.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\public\engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\public\module.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\public\utils\file_handler.h">
@@ -1292,79 +1115,13 @@
     <ClInclude Include="external\include\glm\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_allegro5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_android.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_dx9.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_dx10.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_dx11.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_dx12.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="external\include\imgui\backends\imgui_impl_glfw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_glut.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_metal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_opengl2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\include\imgui\backends\imgui_impl_opengl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\include\imgui\backends\imgui_impl_opengl3_loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_osx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_sdl2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_sdl3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_sdlgpu3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_sdlgpu3_shaders.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_sdlrenderer2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_sdlrenderer3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_vulkan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_wgpu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\backends\imgui_impl_win32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\misc\cpp\imgui_stdlib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\misc\freetype\imgui_freetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\imgui\misc\single_file\imgui_single_file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\include\imgui\imconfig.h">
@@ -1416,60 +1173,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\include\ImReflect\extern\visit_struct\visit_struct.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\app_minimal\app_minimal_imconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\thirdparty\stb\imstb_image_write.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\thirdparty\Str\Str.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_capture_tool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_context.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_coroutine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_exporters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_imconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_perftool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_ui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_engine\imgui_te_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\thirdparty\implot\implot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\thirdparty\implot\implot_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_test_suite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\imgui_test_suite\imgui_test_suite_imconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\include\ImReflect\imgui\imgui_test_engine\shared\imgui_app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\include\ImReflect\single_header\ImReflect.hpp">
@@ -1527,6 +1230,45 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\include\tinyobjloader\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\graphics\gl\graphics_gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\graphics\gl\uniforms_gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\utils\editor_camera_controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\graphics\subsystem\mesh_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\module.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\precomp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\utils\types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -38,7 +38,7 @@ private:
 	std::unique_ptr<Impl> pImpl;
 };
 
-namespace tan_files
+namespace indigo_files
 {
 	std::string read_txt_file(const std::string& _path);
 	std::string parse_shader(const std::string& _path);

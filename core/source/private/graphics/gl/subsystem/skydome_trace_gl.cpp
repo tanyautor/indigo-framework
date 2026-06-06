@@ -1,8 +1,8 @@
 #include "precomp.h"
 
-SkydomeTrace::SkydomeTrace(Camera* _camera) : camera(_camera)
+SkydomeTrace::SkydomeTrace()
 {
-	skydome_trace_shader = Shader("shared/shaders/skydome_trace.vert", "shared/shaders/skydome_trace.frag");
+	skydome_trace = Shader("shared/shaders/skydome_trace.vert", "shared/shaders/skydome_trace.frag");
 
 	// Framebuffer 
 	framebuffer = new Framebuffer("SkydomeTrace FBO");
@@ -12,6 +12,7 @@ SkydomeTrace::SkydomeTrace(Camera* _camera) : camera(_camera)
 	framebuffer->init_depth_stencil(GL_RENDERBUFFER);
 
 	// CameraData
+	auto camera = engine.get_active_camera();
 	camera_data = new CameraDataUBO();	
 	glm::mat4 view = glm::lookAt(camera->transform.GetTranslation(), camera->transform.GetTranslation() + glm::eulerAngles(camera->transform.GetRotation()), glm::vec3(0, 1, 0));
 	camera_data->view = view;
@@ -31,7 +32,7 @@ SkydomeTrace::SkydomeTrace(Camera* _camera) : camera(_camera)
 	float* src = stbi_loadf(filename.c_str(), &x, &y, &bpp, 0);
 	if (!src)
 	{
-		tanlog::log(tanlog::ERROR, "failed to load skydome file {}", filename);
+		log(ERROR, "failed to load skydome file {}", filename);
 	}
 	skydome_width = x;
 	skydome_height = y;
@@ -66,12 +67,14 @@ SkydomeTrace::~SkydomeTrace()
 
 void SkydomeTrace::base_pass()
 {
+	auto camera = engine.get_active_camera();
+
 	//Draw to Framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer->fbo);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	skydome_trace_shader.use_shader();
+	skydome_trace.use_shader();
 
 	// update camera
 	glm::mat4 view = glm::lookAt(camera->transform.GetTranslation(), camera->transform.GetTranslation() + glm::eulerAngles(camera->transform.GetRotation()), glm::vec3(0, 1, 0));
@@ -87,7 +90,7 @@ void SkydomeTrace::base_pass()
 
 
 	// Screen pass to default framebuffer
-	engine.get_renderer().bind_default_framebuffer();
+	engine.get_renderer()->bind_default_framebuffer();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, framebuffer->color_buffer.value());
 	draw_quad();

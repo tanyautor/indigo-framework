@@ -15,7 +15,7 @@ layout (std140, binding = CAMERA_UBO) uniform CameraDataUBO
 };
 layout (std140, binding = TRANSFORM_UBO) uniform TransformUBO
 {
-    transform model;
+    transform mesh;
 };
 
 //debug lights

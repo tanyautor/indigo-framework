@@ -1,6 +1,6 @@
 #include "precomp.h"
 
-namespace tan_files
+namespace indigo_files
 {
 
     const std::regex sIncludeRegex = std::regex("^[ ]*#[ ]*include[ ]+[\"<](.*)[\">].*");
@@ -31,7 +31,7 @@ namespace tan_files
         // check for circular includes
         if (_includes.count(fullpath))
         {
-            tanlog::log(tanlog::ERROR, "found circular include in {}", _path);
+            log(ERROR, "found circular include in {}", _path);
             return std::string();
         }
 
@@ -43,7 +43,7 @@ namespace tan_files
         std::string in_shader_src = read_txt_file(fullpath);
         if (in_shader_src.empty())
         {
-            tanlog::log(tanlog::ERROR, "Shader file not found! Path: {}", fullpath);
+            log(ERROR, "Shader file not found! Path: {}", fullpath);
             return std::string();
         }
 

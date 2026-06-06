@@ -1,10 +1,10 @@
 #pragma once
 
-class ModuleBase
+class Module
 {
 public:
-	ModuleBase() = default;
-	virtual ~ModuleBase() {}
+	Module() = default;
+	virtual ~Module() {}
 
 	virtual void init() {}
 

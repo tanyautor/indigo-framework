@@ -1,14 +1,12 @@
 #include "precomp.h"
 
-using namespace glm;
-
-ModelRenderer::ModelRenderer(Camera* _camera) : camera(_camera)
+MeshRenderer::MeshRenderer()
 {
 	priority = 1 << 2;
 
-	base_shader = Shader("shared/shaders/static_mesh.vert", "shared/shaders/static_mesh.frag");
+	forward_pass = Shader("shared/shaders/static_mesh.vert", "shared/shaders/static_mesh.frag");
 
-	base_shader.use_shader();
+	forward_pass.use_shader();
 
 	trans_data = new TransformUBO();
 	camera_data = new CameraDataUBO();
@@ -42,7 +40,7 @@ ModelRenderer::ModelRenderer(Camera* _camera) : camera(_camera)
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(TransformUBO), trans_data, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	glBindBufferBase(GL_UNIFORM_BUFFER, TRANSFORM_UBO, trans_ubo);
-	label_gl(GL_BUFFER, trans_ubo, "ModelRenderer TransformUBO");
+	label_gl(GL_BUFFER, trans_ubo, "MeshRenderer TransformUBO");
 	glCheckError();
 
 	glGenBuffers(1, &camera_ubo);
@@ -50,7 +48,7 @@ ModelRenderer::ModelRenderer(Camera* _camera) : camera(_camera)
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(CameraDataUBO), camera_data, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	glBindBufferBase(GL_UNIFORM_BUFFER, CAMERA_UBO, camera_ubo);
-	label_gl(GL_BUFFER, camera_ubo, "ModelRenderer CameraUBO");
+	label_gl(GL_BUFFER, camera_ubo, "MeshRenderer CameraUBO");
 	glCheckError();
 
 	glGenBuffers(1, &directional_light_ubo);
@@ -58,7 +56,7 @@ ModelRenderer::ModelRenderer(Camera* _camera) : camera(_camera)
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(DirectionalLightUBO), directional_light_data, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	glBindBufferBase(GL_UNIFORM_BUFFER, DIRECTIONAL_LIGHT_UBO, directional_light_ubo);
-	label_gl(GL_BUFFER, directional_light_ubo, "ModelRenderer DirectionalLightUBO");
+	label_gl(GL_BUFFER, directional_light_ubo, "MeshRenderer DirectionalLightUBO");
 	glCheckError();
 
 	glGenBuffers(1, &point_light_ubo);
@@ -66,11 +64,11 @@ ModelRenderer::ModelRenderer(Camera* _camera) : camera(_camera)
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(PointLightUBO), point_light_data, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	glBindBufferBase(GL_UNIFORM_BUFFER, POINT_LIGHT_UBO, point_light_ubo);
-	label_gl(GL_BUFFER, point_light_ubo, "ModelRenderer PointLightUBO");
+	label_gl(GL_BUFFER, point_light_ubo, "MeshRenderer PointLightUBO");
 	glCheckError();
 
 	// Framebuffer 
-	framebuffer = new Framebuffer("ModelRenderer FBO");
+	framebuffer = new Framebuffer("MeshRenderer FBO");
 
 	// testing everything, probs only need color and render in the end
 	framebuffer->init_color_buffer(GL_TEXTURE_2D);
@@ -78,13 +76,13 @@ ModelRenderer::ModelRenderer(Camera* _camera) : camera(_camera)
 
 	if (!framebuffer->check_complete())
 	{
-		tanlog::log(tanlog::ERROR, "framebuffer failed to init, deleting it now :3");
+		log(ERROR, "framebuffer failed to init, deleting it now :3");
 		delete framebuffer;
 		framebuffer = nullptr;
 	}
 }
 
-ModelRenderer::~ModelRenderer()
+MeshRenderer::~MeshRenderer()
 {
 	glDeleteBuffers(1, &trans_ubo);
 	glDeleteBuffers(1, &camera_ubo);
@@ -101,10 +99,12 @@ ModelRenderer::~ModelRenderer()
 	delete directional_light_data;
 }
 
-void ModelRenderer::base_pass()
+void MeshRenderer::base_pass()
 {
-	if (!camera) return;
 	if (!framebuffer) return;
+
+	auto camera = engine.get_active_camera();
+	
 	ImGui::Begin("Lights");
 	ImReflect::Input("Directional Light", directional_light_data->directional_light);
 	ImReflect::Input("Point Light", point_light_data->point_light);
@@ -115,7 +115,7 @@ void ModelRenderer::base_pass()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
-	base_shader.use_shader();
+	forward_pass.use_shader();
 
 	// update camera
 	mat4 view = lookAt(camera->transform.GetTranslation(), camera->transform.GetTranslation() + eulerAngles(camera->transform.GetRotation()), vec3(0, 1, 0));
@@ -131,25 +131,25 @@ void ModelRenderer::base_pass()
 	glBindBuffer(GL_UNIFORM_BUFFER, point_light_ubo);
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(PointLightUBO), point_light_data, GL_DYNAMIC_DRAW);
 
-	for (auto& model : models)
+	for (auto& mesh : meshes)
 	{
-		// update model and wvp matrices... look into instancing later pls
-		trans_data->model.world = model.transform.World();
-		trans_data->model.wvp = camera_data->vp * model.transform.World();
+		// update mesh and wvp matrices... look into instancing later pls
+		trans_data->mesh.world = mesh.transform.World();
+		trans_data->mesh.wvp = camera_data->vp * mesh.transform.World();
 		glBindBuffer(GL_UNIFORM_BUFFER, trans_ubo);
 		glBufferData(GL_UNIFORM_BUFFER, sizeof(TransformUBO), trans_data, GL_DYNAMIC_DRAW);
-		model.render();
+		mesh.render();
 	}
 
 	// Screen pass to default framebuffer
-	engine.get_renderer().bind_default_framebuffer();
+	engine.get_renderer()->bind_default_framebuffer();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, framebuffer->color_buffer.value());
 	draw_quad();
 }
 
-void ModelRenderer::post_process_pass()
-{
-}
+//void MeshRenderer::post_process_pass()
+//{
+//}
 
 

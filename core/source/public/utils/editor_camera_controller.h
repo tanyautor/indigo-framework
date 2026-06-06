@@ -7,12 +7,10 @@ public:
 	EditorCameraController();
 	~EditorCameraController();
 
-	void init(Camera* _to_control);
+	void init();
 	void update(float _delta);
 
 private:
-	Camera* camera{ nullptr };
-
 	glm::vec2 prev_mouse_pos{ 0,0 };
 	float pitch{ 0.f };
 	float yaw{ 0.f };

@@ -1,7 +1,5 @@
 #include  "precomp.h"
 
-using namespace glm;
-
 void Transform::SetFromMatrix(const mat4& m44)
 {
     m_translation.x = m44[3][0];

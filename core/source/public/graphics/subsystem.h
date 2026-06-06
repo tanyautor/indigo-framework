@@ -9,11 +9,12 @@
 
 struct Framebuffer;
 
-class SubsystemBase
+// Rendering subsystem base class
+class Subsystem
 {
 public:
-	SubsystemBase() = default;
-	virtual ~SubsystemBase() {};
+	Subsystem() = default;
+	virtual ~Subsystem() {};
 
 	// override these to render
 	// implement rendering in device specific source file

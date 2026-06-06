@@ -25,7 +25,7 @@ namespace FileHandler
 			return true;
 		}
 		else
-			tanlog::log(tanlog::ERROR, "failed to write to saved bin: {}", file_path.c_str());
+			log(ERROR, "failed to write to saved bin: {}", file_path.c_str());
 
 		return false;
 	}
@@ -48,7 +48,7 @@ namespace FileHandler
 			return true;
 		}
 		else
-			tanlog::log(tanlog::ERROR, "failed to find/open saved bin file: {}", file_path.c_str());
+			log(ERROR, "failed to find/open saved bin file: {}", file_path.c_str());
 
 		return false;
 	}
@@ -64,11 +64,11 @@ namespace FileHandler
 			_stream = stbi_load(file_path.c_str(), reinterpret_cast<int*>(&_width), reinterpret_cast<int*>(&_height), &_compression, 0);
 			if(_stream)
 			{
-				tanlog::log(tanlog::INFO, "loaded image file {} with compression {}", file_path, _compression);
+				log(INFO, "loaded image file {} with compression {}", file_path, _compression);
 			}
 			else
 			{
-				tanlog::log(tanlog::ERROR, "failed to load image {}", file_path);
+				log(ERROR, "failed to load image {}", file_path);
 				_compression = 0;
 				_height = 0;
 				_width = 0;
