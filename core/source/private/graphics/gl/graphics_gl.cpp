@@ -653,6 +653,7 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.IniFilename = "saved/EditorLayout.ini"; // TODO: add saved folder path to file handler and use that here
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
