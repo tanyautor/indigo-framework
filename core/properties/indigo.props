@@ -12,7 +12,7 @@
       <AdditionalIncludeDirectories>
       $(IndigoDirectory)external/include;
       $(IndigoDirectory)external/include/glm;
-      $(IndigoDirectory)external/include/imgui-master;
+      $(IndigoDirectory)external/include/imgui;
       $(IndigoDirectory)shared;
       $(IndigoDirectory)source/public;
       $(IndigoDirectory)source/public/utils;

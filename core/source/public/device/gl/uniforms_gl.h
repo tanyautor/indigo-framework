@@ -25,9 +25,6 @@
 // uniform definitions
 #include "shaders/uniforms.glsl"
 
-#include "shaders/pixel_sort_locations.glsl"
-#include "shaders/pixel_sort_uniforms.glsl"
-
 #undef uint
 #undef vec2 
 #undef vec3 

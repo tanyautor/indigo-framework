@@ -3,8 +3,8 @@
 // device specific, so keep them out of precomp.h
 // should only be included in source files in the device folder
 
-#include "imgui-master/backends/imgui_impl_glfw.h"
-#include "imgui-master/backends/imgui_impl_opengl3.h"
+#include "imgui/backends/imgui_impl_glfw.h"
+#include "imgui/backends/imgui_impl_opengl3.h"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"

@@ -23,14 +23,14 @@
 #include "magic_enum/magic_enum.hpp"
 
 // imgui
-#include "imgui-master/imgui.h"
-#include <imgui-master/imgui_internal.h>
-#include <imgui-master/misc/cpp/imgui_stdlib.h>
+#include "imgui/imgui.h"
+#include "imgui/imgui_internal.h"
+#include "imgui/misc/cpp/imgui_stdlib.h"
 
-#include "ImGuizmo-master/ImGuizmo.h"
+#include "ImGuizmo/ImGuizmo.h"
 
-#include "ImReflect-main/single_header/ImReflect.hpp"
-#include "ImReflect-main/glm.hpp"
+#include "ImReflect/single_header/ImReflect.hpp"
+#include "ImReflect/glm.hpp"
 
 // glm https://github.com/g-truc/glm (29.10.2025) 
 #define GLM_FORCE_LEFT_HANDED
@@ -50,7 +50,7 @@
 
 // tiny obj
 // defines in precomp_impls.cpp
-#include "tinyobjloader-release/tiny_obj_loader.h"
+#include "tinyobjloader/tiny_obj_loader.h"
 
 // utils
 #include "common.h"
@@ -83,7 +83,6 @@
 //render subsystems -> game code actually
 #include "graphics/subsystem/skydome_trace.h"
 #include "graphics/subsystem/model_renderer.h"
-#include "graphics/subsystem/pixel_sorter.h"
 
 // engine
 #include "input.h"
@@ -91,8 +90,3 @@
 #include "module.h"
 #include "engine.h"
 
-
-
-
-// game code ???
-#include "IndigoPixelSort.h"
