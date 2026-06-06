@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="external\include\glad\glad.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\backends\imgui_impl_glfw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\backends\imgui_impl_opengl2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\backends\imgui_impl_opengl3.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui-master\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\ImGuizmo-master\GraphEditor.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\ImGuizmo-master\ImCurveEdit.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\ImGuizmo-master\ImGradient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\ImGuizmo-master\ImGuizmo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\ImGuizmo-master\ImSequencer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="external\include\stb_image\stb_vorbis.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\private\graphics\assets\gl\mesh_gl.cpp" />
+    <ClCompile Include="source\private\graphics\assets\gl\model_gl.cpp" />
+    <ClCompile Include="source\private\device\gl\graphics_gl.cpp" />
+    <ClCompile Include="source\private\device\gl\input_gl.cpp" />
+    <ClCompile Include="source\private\device\gl\renderer_gl.cpp" />
+    <ClCompile Include="source\private\device\gl\shader_gl.cpp" />
+    <ClCompile Include="source\private\graphics\subsystem\gl\model_renderer_gl.cpp" />
+    <ClCompile Include="source\private\graphics\subsystem\gl\pixel_sorter_gl.cpp" />
+    <ClCompile Include="source\private\engine.cpp" />
+    <ClCompile Include="source\private\graphics\subsystem\gl\skydome_trace_gl.cpp" />
+    <ClCompile Include="source\private\IndigoPixelSort.cpp" />
+    <ClCompile Include="source\private\main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\private\graphics\shader.cpp" />
+    <ClCompile Include="source\private\graphics\editor_camera_controller.cpp" />
+    <ClCompile Include="source\private\precomp_impls.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="source\private\transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="external\include\imgui-master\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="external\include\imgui-master\backends\imgui_impl_opengl2.h" />
+    <ClInclude Include="external\include\imgui-master\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="external\include\imgui-master\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="external\include\imgui-master\imconfig.h" />
+    <ClInclude Include="external\include\imgui-master\imgui.h" />
+    <ClInclude Include="external\include\imgui-master\imgui_internal.h" />
+    <ClInclude Include="external\include\imgui-master\imstb_rectpack.h" />
+    <ClInclude Include="external\include\imgui-master\imstb_textedit.h" />
+    <ClInclude Include="external\include\imgui-master\imstb_truetype.h" />
+    <ClInclude Include="external\include\ImGuizmo-master\GraphEditor.h" />
+    <ClInclude Include="external\include\ImGuizmo-master\ImCurveEdit.h" />
+    <ClInclude Include="external\include\ImGuizmo-master\ImGradient.h" />
+    <ClInclude Include="external\include\ImGuizmo-master\ImGuizmo.h" />
+    <ClInclude Include="external\include\ImGuizmo-master\ImLightRig.h" />
+    <ClInclude Include="external\include\ImGuizmo-master\ImSequencer.h" />
+    <ClInclude Include="external\include\ImGuizmo-master\ImZoomSlider.h" />
+    <ClInclude Include="external\include\ImReflect-main\extern\magic_enum\magic_enum.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\extern\svh\scope.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\extern\svh\tag_invoke.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\extern\visit_struct\visit_struct.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\ImReflect.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\ImReflect_entry.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\ImReflect_helper.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\ImReflect_macro.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\ImReflect_primitives.hpp" />
+    <ClInclude Include="external\include\ImReflect-main\ImReflect_std.hpp" />
+    <ClInclude Include="external\include\stb_image\stb_connected_components.h" />
+    <ClInclude Include="external\include\stb_image\stb_c_lexer.h" />
+    <ClInclude Include="external\include\stb_image\stb_divide.h" />
+    <ClInclude Include="external\include\stb_image\stb_ds.h" />
+    <ClInclude Include="external\include\stb_image\stb_dxt.h" />
+    <ClInclude Include="external\include\stb_image\stb_easy_font.h" />
+    <ClInclude Include="external\include\stb_image\stb_herringbone_wang_tile.h" />
+    <ClInclude Include="external\include\stb_image\stb_hexwave.h" />
+    <ClInclude Include="external\include\stb_image\stb_image.h" />
+    <ClInclude Include="external\include\stb_image\stb_image_resize2.h" />
+    <ClInclude Include="external\include\stb_image\stb_image_write.h" />
+    <ClInclude Include="external\include\stb_image\stb_include.h" />
+    <ClInclude Include="external\include\stb_image\stb_leakcheck.h" />
+    <ClInclude Include="external\include\stb_image\stb_perlin.h" />
+    <ClInclude Include="external\include\stb_image\stb_rect_pack.h" />
+    <ClInclude Include="external\include\stb_image\stb_sprintf.h" />
+    <ClInclude Include="external\include\stb_image\stb_textedit.h" />
+    <ClInclude Include="external\include\stb_image\stb_tilemap_editor.h" />
+    <ClInclude Include="external\include\stb_image\stb_truetype.h" />
+    <ClInclude Include="external\include\stb_image\stb_voxel_render.h" />
+    <ClInclude Include="source\public\device\gl\graphics_gl.h" />
+    <ClInclude Include="source\public\device\gl\uniforms_gl.h" />
+    <ClInclude Include="source\public\device\input.h" />
+    <ClInclude Include="source\public\engine.h" />
+    <ClInclude Include="source\public\graphics\subsystem\pixel_sorter.h" />
+    <ClInclude Include="source\public\graphics\subsystem\skydome_trace.h" />
+    <ClInclude Include="source\public\IndigoPixelSort.h" />
+    <ClInclude Include="source\public\graphics\assets\components.h" />
+    <ClInclude Include="source\public\graphics\assets\editor_camera_controller.h" />
+    <ClInclude Include="source\public\graphics\assets\mesh.h" />
+    <ClInclude Include="source\public\graphics\assets\model.h" />
+    <ClInclude Include="source\public\graphics\graphics.h" />
+    <ClInclude Include="source\public\graphics\renderer.h" />
+    <ClInclude Include="source\public\graphics\shader.h" />
+    <ClInclude Include="source\public\graphics\subsystem.h" />
+    <ClInclude Include="source\public\graphics\subsystem\model_renderer.h" />
+    <ClInclude Include="source\public\module.h" />
+    <ClInclude Include="source\public\precomp.h" />
+    <ClInclude Include="source\public\transform.h" />
+    <ClInclude Include="source\public\utils\common.h" />
+    <ClInclude Include="source\public\utils\file_handler.h" />
+    <ClInclude Include="source\public\utils\log.h" />
+    <ClInclude Include="source\public\utils\timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="external\lib\GLFW\lib-vc2019\glfw3.lib" />
+    <Library Include="external\lib\GLFW\lib-vc2019\glfw3_mt.lib" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{cd5f2e31-3d3c-4616-82fc-381947f2e13a}</ProjectGuid>
+    <RootNamespace>indigopixelsort</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="properties\indigo.props" />
+    <Import Project="properties\indigo_gl.props" />
+    <Import Project="properties\indigo_library.props" />
+    <Import Project="properties\indigo_debug.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="properties\indigo.props" />
+    <Import Project="properties\indigo_gl.props" />
+    <Import Project="properties\indigo_library.props" />
+    <Import Project="properties\indigo_release.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precomp.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precomp.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
