@@ -82,12 +82,11 @@
     <ClCompile Include="source\private\graphics\gl\renderer_gl.cpp" />
     <ClCompile Include="source\private\graphics\gl\shader_gl.cpp" />
     <ClCompile Include="source\private\graphics\gl\subsystem\mesh_renderer_gl.cpp" />
-    <ClCompile Include="source\private\engine.cpp" />
-    <ClCompile Include="source\private\graphics\gl\subsystem\skydome_trace_gl.cpp" />
-    <ClCompile Include="source\private\main.cpp">
+    <ClCompile Include="source\private\engine.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="source\private\graphics\gl\subsystem\skydome_trace_gl.cpp" />
     <ClCompile Include="source\private\graphics\shader.cpp" />
     <ClCompile Include="source\private\utils\editor_camera_controller.cpp" />
     <ClCompile Include="source\private\precomp_impls.cpp">
@@ -641,13 +640,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -673,6 +672,8 @@
     <Import Project="properties\indigo_release.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>

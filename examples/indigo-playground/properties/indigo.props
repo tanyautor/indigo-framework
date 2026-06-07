@@ -4,7 +4,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_PropertySheetDisplayName>INDIGO</_PropertySheetDisplayName>
-    <IndigoDirectory>$(MSBuildThisFileDirectory)../</IndigoDirectory>
+	  <IndigoDirectory>$(MSBuildThisFileDirectory)../../../core/</IndigoDirectory>
     <IndigoLint>false</IndigoLint>
   </PropertyGroup>
   <ItemDefinitionGroup>
@@ -25,7 +25,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AnsiCompliance>false</AnsiCompliance>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>_UNICODE;UNICODE;INDIGO;INDIGO_EDITOR;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -43,8 +43,14 @@
     </Link>
     <PreBuildEvent>
 	  <Command>
+		  mkdir "$(ProjectDir)shared"
 		  mkdir "$(ProjectDir)saved"
 	  </Command>
 	</PreBuildEvent>
+    <PostBuildEvent>
+	  <Command>
+		  xcopy /s /y /d /c "$(IndigoDirectory)shared" "$(ProjectDir)shared"
+	  </Command>
+	</PostBuildEvent>
   </ItemDefinitionGroup>
 </Project>

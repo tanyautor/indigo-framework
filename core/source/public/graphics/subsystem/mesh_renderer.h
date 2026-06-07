@@ -2,6 +2,8 @@
 
 struct CameraDataUBO;
 struct TransformUBO;
+struct DirectionalLightUBO;
+struct PointLightUBO;
 struct Framebuffer;
 
 class MeshRenderer : public Subsystem
