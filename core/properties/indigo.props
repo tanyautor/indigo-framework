@@ -43,7 +43,7 @@
     </Link>
     <PreBuildEvent>
 	  <Command>
-		  mkdir "$(ProjectDir)saved"
+		  if not exist "$(IndigoDirectory)saved" mkdir "$(IndigoDirectory)saved"
 	  </Command>
 	</PreBuildEvent>
   </ItemDefinitionGroup>

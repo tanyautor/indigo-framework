@@ -61,6 +61,7 @@ private:
 
 	std::vector<std::shared_ptr<Module>> modules;
 
+	float delta_time_engine{ 0.f };
 	float delta_time_world{ 0.f };
 	float fixed_timestep{ 1.f / 60.f };
 

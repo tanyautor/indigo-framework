@@ -49,3 +49,36 @@ const glm::mat4& Transform::World()
 
     return m_worldMatrix;
 }
+
+#ifdef INDIGO_EDITOR
+void Transform::interface_component() 
+{
+    vec3 translation = GetTranslation();
+    quat rotation = GetRotation();
+    vec3 scale = GetScale();
+
+    ImGui::Text("Translation");
+    if (ImGui::InputFloat3(("##Translation" + name).c_str(),
+        glm::value_ptr(translation),
+        "%.2f"))
+    {
+        SetTranslation(translation);
+    }
+    ImGui::Text("Rotation");
+    if (ImGui::InputFloat4(("##Rotation" + name).c_str(),
+        glm::value_ptr(rotation),
+        "%.2f"))
+    {
+        SetRotation(rotation);
+    }
+    ImGui::Text("Scale");
+    if (ImGui::InputFloat3(("##Scale" + name).c_str(),
+        glm::value_ptr(scale),
+        "%.2f"))
+    {
+        SetScale(scale);
+    }
+}
+#else
+void Transform::interface_component() {}
+#endif // INDIGO_EDITOR

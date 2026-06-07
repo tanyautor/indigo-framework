@@ -558,6 +558,8 @@ struct Window::Impl
     bool valid = false;
     glm::ivec2 size{0,0};
     GLFWwindow* window = nullptr;
+    GLFWmonitor* monitor = nullptr;
+
 };
 
 // device specific definitions
@@ -580,6 +582,7 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
 
     pImpl->size.x = glm::max(_width, 800u);
     pImpl->size.y = glm::max(_height, 600u);
+    pImpl->monitor = glfwGetPrimaryMonitor();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
@@ -588,12 +591,11 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
 
     if (_fullscreen)
     {
-        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        const GLFWvidmode* mode = glfwGetVideoMode(pImpl->monitor);
 
         auto maxScreenWidth = mode->width;
         auto maxScreenHeight = mode->height;
-        pImpl->window = glfwCreateWindow(maxScreenWidth, maxScreenHeight, _title, monitor, NULL);
+        pImpl->window = glfwCreateWindow(maxScreenWidth, maxScreenHeight, _title, pImpl->monitor, NULL);
 
         if(pImpl->window)
             glfwSetInputMode(pImpl->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -646,31 +648,9 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     log(INFO, "OpenGL Version {}", version);
     log(INFO, "OpenGL Shader Version {}", shaderVersion);
     
-    float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor()); // Valid on GLFW 3.3+ only
-
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    io.IniFilename = "saved/EditorLayout.ini"; // TODO: add saved folder path to file handler and use that here
-
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-
-    // Setup scaling
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
-    style.FontScaleDpi = main_scale;        // Set initial font scale. (using io.ConfigDpiScaleFonts=true makes this unnecessary. We leave both here for documentation purpose)
-
-    // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(pImpl->window, false);
-    ImGui_ImplOpenGL3_Init("#version 130");
-
     //install input mananger
     input.init(pImpl->window);
 
-    ImGui_ImplGlfw_InstallCallbacks(pImpl->window);
 }
 Window::~Window()
 { 
@@ -680,10 +660,22 @@ Window::~Window()
     glfwTerminate();
 }
 
+void* Window::get_window() const
+{
+    return pImpl->window;
+}
+
 const glm::ivec2& Window::get_window_size() const 
 {
     glfwGetFramebufferSize(pImpl->window, &pImpl->size.x, &pImpl->size.y);
     return pImpl->size;
+}
+
+const float Window::get_monitor_ui_scale() const
+{
+    float xscale = 1.0f, yscale = 1.0f;
+    glfwGetMonitorContentScale(pImpl->monitor, &xscale, &yscale);
+    return xscale;
 }
 
 bool Window::is_running() const 
@@ -695,23 +687,10 @@ bool Window::is_running() const
 
 void Window::begin_frame()
 {
-#ifdef INDIGO_EDITOR
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-
-    ImGuizmo::BeginFrame(); 
-    ImGuizmo::SetRect(0, 0, (float)pImpl->size.x, (float)pImpl->size.y);
-#endif
 
 }
 void Window::end_frame()
 {
-#ifdef INDIGO_EDITOR
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-#endif
 
     glfwSwapBuffers(pImpl->window);
     glfwPollEvents();

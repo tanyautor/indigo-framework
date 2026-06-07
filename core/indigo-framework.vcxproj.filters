@@ -24,7 +24,7 @@
     <ClCompile Include="source\private\device\gl\input_gl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\private\utils\editor_camera_controller.cpp">
+    <ClCompile Include="source\private\modules\editor_camera_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\private\engine.cpp">
@@ -100,6 +100,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\private\common\transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\private\modules\editor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\include\imgui\imgui_impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\private\common\editor_interfaces.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1247,7 +1256,7 @@
     <ClInclude Include="source\public\graphics\gl\uniforms_gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\public\utils\editor_camera_controller.h">
+    <ClInclude Include="source\public\modules\editor_camera_controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\public\common\mesh.h">
@@ -1266,6 +1275,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\public\utils\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\utils\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\modules\editor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\imgui\imgui_impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\public\common\editor_interfaces.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

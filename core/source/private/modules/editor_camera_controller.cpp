@@ -1,34 +1,49 @@
 #include "precomp.h"
 
-EditorCameraController::EditorCameraController()
-{
-}
-
-EditorCameraController::~EditorCameraController()
-{
-}
-
 void EditorCameraController::init()
 { 
 	auto camera = engine.get_active_camera();
-	
+	valid_ptr(camera)
+
 	// set yaw and pitch
 	pitch = glm::pitch(camera->transform.GetRotation());
 	yaw = glm::yaw(camera->transform.GetRotation()) + glm::pi<float>();
 
 	const float correction_pitch{ pitch / glm::half_pi<float>() * glm::pi<float>() };
 	pitch += pitch > 0.f ? -correction_pitch : correction_pitch;
+
+
+	if (camera->transform.name.empty())
+	{
+		auto window = engine.get_window();
+		valid_ptr(window);
+
+		//Camera saved_camera;
+		//if (FileHandler::load_bin("editor_camera", &saved_camera, sizeof(Camera)))
+		//{
+		//	camera->projection = saved_camera.projection;
+		//	camera->transform.SetFromMatrix(saved_camera.transform.World());
+		//}
+		//else
+		{
+			camera->projection = glm::perspective(glm::radians(45.f), (float)window->get_window_size().x / (float)window->get_window_size().y, 0.1f, 100.f);
+			camera->transform.SetTranslation(glm::vec3(0, 10, 20));
+			camera->transform.SetRotation(glm::vec3(0, 0, -1));
+		}
+		camera->transform.name = "Editor Camera";
+
+		register_interface(std::make_shared<Transform>(camera->transform));
+	}
+	else
+	{
+		log(Severity::WARNING, "active camera already instantiated, skipping loading from saved bin");
+	}
 }
 
-void EditorCameraController::update(float _delta)
+void EditorCameraController::tick(float _delta)
 {
 	auto camera = engine.get_active_camera();
-
-	ImGui::Begin("Camera");
-	ImGui::SliderFloat("speed", &speed, 0.1f, 5.f);
-	ImGui::SliderFloat("pitch", &pitch, -glm::pi<float>(), glm::pi<float>());
-	ImGui::SliderFloat("yaw", &yaw, -glm::pi<float>(), glm::pi<float>());
-
+	valid_ptr(camera)
 
 	glm::vec3 position = camera->transform.GetTranslation();
 	glm::quat rotation = camera->transform.GetRotation();
@@ -73,11 +88,33 @@ void EditorCameraController::update(float _delta)
 		glm::sin(pitch),
 		glm::cos(pitch) * glm::cos(yaw) };
 
-	ImGui::InputFloat3("moved to", glm::value_ptr(position));
-	ImGui::InputFloat4("rotated", glm::value_ptr(rotation));
-
-	ImGui::End();
 
 	camera->transform.SetTranslation(position);
 	camera->transform.SetRotation(rotation);
 }
+
+void EditorCameraController::shutdown()
+{
+	auto camera = engine.get_active_camera();
+	valid_ptr(camera)
+
+	FileHandler::save_bin("editor_camera", camera.get(), sizeof(Camera));
+}
+
+#ifdef INDIGO_EDITOR
+void EditorCameraController::interface_window()
+{
+	// Controller info
+	ImGui::SliderFloat("speed", &speed, 0.1f, 5.f);
+	ImGui::SliderFloat("pitch", &pitch, -glm::pi<float>(), glm::pi<float>());
+	ImGui::SliderFloat("yaw", &yaw, -glm::pi<float>(), glm::pi<float>());
+
+
+	// controlled camera
+	ImGui::Separator();
+	interface_components();
+}
+
+#else
+void EditorCameraController::interface_window() {}
+#endif

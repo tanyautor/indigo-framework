@@ -22,15 +22,18 @@
 // magic_enum https://github.com/Neargye/magic_enum/tree/master (29.10.2025)
 #include "magic_enum/magic_enum.hpp"
 
-// imgui
-#include "imgui/imgui.h"
-#include "imgui/imgui_internal.h"
-#include "imgui/misc/cpp/imgui_stdlib.h"
+#ifdef INDIGO_EDITOR
+	// imgui
+	#include "imgui/imgui.h"
+	#include "imgui_impl.h"
+	#include "imgui/imgui_internal.h"
+	#include "imgui/misc/cpp/imgui_stdlib.h"
 
-#include "ImGuizmo/ImGuizmo.h"
+	#include "ImGuizmo/ImGuizmo.h"
 
-#include "ImReflect/single_header/ImReflect.hpp"
-#include "ImReflect/glm.hpp"
+	#include "ImReflect/single_header/ImReflect.hpp"
+	#include "ImReflect/glm.hpp"
+#endif
 
 // glm https://github.com/g-truc/glm (29.10.2025) 
 #define GLM_FORCE_LEFT_HANDED
@@ -55,12 +58,12 @@ using namespace glm;
 #include "tinyobjloader/tiny_obj_loader.h"
 
 // utils
+#include "common.h"
 #include "utils/types.h"
 #include "utils/log.h"
 using namespace indigo_log;
 #include "utils/timer.h"
 #include "utils/file_handler.h"
-#include "utils/editor_camera_controller.h"
 
 // graphics
 #include "graphics/shader.h"
@@ -68,6 +71,8 @@ using namespace indigo_log;
 #include "graphics/renderer.h"
 
 // common assets components
+#include "common/editor_interfaces.h"
+
 #include "common/transform.h"
 #include "common/module.h"
 #include "common/camera.h"
@@ -83,6 +88,10 @@ using namespace indigo_log;
 #include "graphics/gl/uniforms_gl.h"
 
 #endif
+
+// Modules
+#include "modules/editor.h"
+#include "modules/editor_camera_controller.h"
 
 //render subsystems -> game code actually
 #include "graphics/subsystem/skydome_trace.h"

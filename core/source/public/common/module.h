@@ -13,5 +13,9 @@ public:
 
 	virtual void shutdown() {}
 
-private:
+	const std::string& get_name() const { return name; }
+
+protected:
+	std::string name{ "Module" };
+
 };
