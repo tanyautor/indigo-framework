@@ -3,14 +3,6 @@
 
 Engine engine;
 
-Engine::Engine()
-{
-}
-
-Engine::~Engine()
-{
-}
-
 void Engine::init()
 {
 	window = std::make_shared<Window>(1280, 768, "bomb voyage stole me wallet >:(", false);

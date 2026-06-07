@@ -41,5 +41,10 @@
     <Link>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PreBuildEvent>
+	  <Command>
+		  mkdir "$(ProjectDir)saved"
+	  </Command>
+	</PreBuildEvent>
   </ItemDefinitionGroup>
 </Project>

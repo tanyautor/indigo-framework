@@ -41,5 +41,16 @@
     <Link>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PreBuildEvent>
+	  <Command>
+		  mkdir "$(ProjectDir)shared"
+		  mkdir "$(ProjectDir)saved"
+	  </Command>
+	</PreBuildEvent>
+    <PostBuildEvent>
+	  <Command>
+		  xcopy /s /y /d /c "$(IndigoDirectory)shared" "$(ProjectDir)shared"
+	  </Command>
+	</PostBuildEvent>
   </ItemDefinitionGroup>
 </Project>
