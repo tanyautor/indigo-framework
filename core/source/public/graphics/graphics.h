@@ -38,7 +38,11 @@ public:
 	Window(uint32 _width = 800u, uint32 _height = 600u, const char* _title = "you're boring", bool _fullscreen = false);
 	~Window();
 
+	// TODO: absolutely horrible
+	void* get_window() const;
+
 	const glm::ivec2& get_window_size() const;
+	const float get_monitor_ui_scale() const;
 	bool is_running() const;
 
 	void begin_frame();

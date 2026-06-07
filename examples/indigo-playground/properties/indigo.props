@@ -43,8 +43,8 @@
     </Link>
     <PreBuildEvent>
 	  <Command>
-		  mkdir "$(ProjectDir)shared"
-		  mkdir "$(ProjectDir)saved"
+		  if not exist "$(ProjectDir)shared" mkdir "$(ProjectDir)shared"
+		  if not exist "$(ProjectDir)saved" mkdir "$(ProjectDir)saved"
 	  </Command>
 	</PreBuildEvent>
     <PostBuildEvent>

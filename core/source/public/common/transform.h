@@ -1,10 +1,11 @@
 #pragma once
 
-struct Transform
+struct Transform : public EditorInterface
 {
     std::string name = {};
 
     Transform() {}
+
 
     Transform(const glm::vec3& translation, const glm::vec3& scale, const glm::quat& rotation)
         : m_translation(translation), m_scale(scale), m_rotation(rotation)
@@ -36,6 +37,10 @@ struct Transform
     }
 
     void SetFromMatrix(const glm::mat4& transform);
+
+    // Editor
+    virtual const std::string get_name() override { return name; }
+    virtual void interface_component() override;
 
 private:
     glm::vec3 m_translation = glm::vec3(0.0f, 0.0f, 0.0f);

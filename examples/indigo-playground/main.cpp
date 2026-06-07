@@ -4,15 +4,14 @@
 class GameModule : public Module
 {
 public:
-	GameModule() { log(Severity::INFO, "GameModule registered."); };
-	~GameModule() {};
+	GameModule() { name = "GameModule"; };
 
 	virtual void init() override;
 	virtual void tick(float _delta) override;
 	virtual void fixed_tick() override;
 	virtual void shutdown() override;
 
-private:
+protected:
 
 
 };
