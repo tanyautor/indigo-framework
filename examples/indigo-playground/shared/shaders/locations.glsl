@@ -1,9 +1,19 @@
 
-//Vertex locations
-#define MESH_POSITION 0
-#define MESH_NORMAL 1
-#define MESH_TEXCOORD 2
-#define MESH_COLOR 3
+// Atributes
+#define MESH_POSITION			0
+#define MESH_NORMAL				1
+#define MESH_TEXTURE0			2
+#define MESH_TEXTURE1			3
+#define MESH_COLOR				4
+#define MESH_TANGENT			5
+#define MESH_LOCATION_COUNT     6
+
+// Samplers
+#define BASE_COLOR_SAMPLER_LOCATION			0
+#define NORMAL_SAMPLER_LOCATION				1
+#define EMISSIVE_SAMPLER_LOCATION			2
+#define METALLIC_ROUGHNESS_SAMPLER_LOCATION 3
+#define OCCLUSION_SAMPLER_LOCATION			4
 
 //UBOs
 #define CAMERA_UBO 1

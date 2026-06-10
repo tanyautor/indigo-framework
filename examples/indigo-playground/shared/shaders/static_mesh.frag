@@ -7,8 +7,11 @@ in vec3 v_position;
 in vec3 v_color;
 in vec3 v_normal;
 
-uniform sampler2D diffuse;
-uniform sampler2D normal;
+layout(location = BASE_COLOR_SAMPLER_LOCATION)          uniform sampler2D s_base_color;
+layout(location = NORMAL_SAMPLER_LOCATION)              uniform sampler2D s_normal;
+layout(location = EMISSIVE_SAMPLER_LOCATION)            uniform sampler2D s_emissive;
+layout(location = METALLIC_ROUGHNESS_SAMPLER_LOCATION)  uniform sampler2D s_orm;
+layout(location = OCCLUSION_SAMPLER_LOCATION)           uniform sampler2D s_occulsion;
 
 out vec4 FragColor;
 
@@ -32,8 +35,8 @@ vec3 light_attenuation(vec3 norm)
 
 void main()
 {
-    vec3 texel = texture(diffuse, v_texture).xyz;
-    vec3 ntexel = texture(normal, v_texture).xyz;
+    vec3 texel = texture(s_base_color, v_texture).xyz;
+    vec3 ntexel = texture(s_normal, v_texture).xyz;
 
     vec3 surface_lighting = light_attenuation(ntexel);
     vec3 vertex_lighting = light_attenuation(v_normal);

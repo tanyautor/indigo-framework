@@ -1,5 +1,28 @@
 #include "precomp.h"
 
+static void set_texture(std::shared_ptr<Texture> _texture, int32 _location)
+{
+	glActiveTexture(GL_TEXTURE0 + _location);
+	glBindTexture(GL_TEXTURE_2D, _texture->image->texture);
+	glUniform1i(_location, _location);
+	glCheckError();
+	
+	_texture->sampler->apply_sampler();
+}
+static void apply_material(std::shared_ptr<Material> _material)
+{
+	if (_material->base_color) set_texture(_material->base_color, BASE_COLOR_SAMPLER_LOCATION);
+
+	if (_material->normal_map) set_texture(_material->normal_map, NORMAL_SAMPLER_LOCATION);
+
+	if (_material->metallic_roughness) set_texture(_material->metallic_roughness, METALLIC_ROUGHNESS_SAMPLER_LOCATION);
+
+	if (_material->occlusion) set_texture(_material->occlusion, OCCLUSION_SAMPLER_LOCATION);
+
+	if (_material->emissive) set_texture(_material->emissive, EMISSIVE_SAMPLER_LOCATION);
+
+}
+
 MeshRenderer::MeshRenderer()
 {
 	priority = 1 << 2;
@@ -33,6 +56,12 @@ MeshRenderer::MeshRenderer()
 		point_light_data->point_light.position[1] = tmp[4];
 		point_light_data->point_light.position[2] = tmp[5];
 		point_light_data->point_light.intensity = tmp[6];
+	}
+	else
+	{
+		point_light_data->point_light.intensity = 1.f;
+		point_light_data->point_light.color = { 1.f,1.f ,1.f };
+		point_light_data->point_light.position = { 0.f,10.f ,10.f };
 	}
 
 	glGenBuffers(1, &trans_ubo);
@@ -104,11 +133,7 @@ void MeshRenderer::base_pass()
 	if (!framebuffer) return;
 
 	auto camera = engine.get_active_camera();
-	
-	ImGui::Begin("Lights");
-	ImReflect::Input("Directional Light", directional_light_data->directional_light);
-	ImReflect::Input("Point Light", point_light_data->point_light);
-	ImGui::End();
+
 
 	//Draw to Framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer->fbo);
@@ -131,14 +156,23 @@ void MeshRenderer::base_pass()
 	glBindBuffer(GL_UNIFORM_BUFFER, point_light_ubo);
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(PointLightUBO), point_light_data, GL_DYNAMIC_DRAW);
 
-	for (auto& mesh : meshes)
+	for (auto model : models)
 	{
-		// update mesh and wvp matrices... look into instancing later pls
-		trans_data->mesh.world = mesh.transform.World();
-		trans_data->mesh.wvp = camera_data->vp * mesh.transform.World();
-		glBindBuffer(GL_UNIFORM_BUFFER, trans_ubo);
-		glBufferData(GL_UNIFORM_BUFFER, sizeof(TransformUBO), trans_data, GL_DYNAMIC_DRAW);
-		mesh.render();
+		if(auto model_reg = model.lock())
+		{
+			for (auto mesh : model_reg->meshes)
+			{
+				apply_material(mesh->material_slot);
+
+				// update mesh and wvp matrices... look into instancing later pls
+				trans_data->mesh.world = mesh->transform.World();
+				trans_data->mesh.wvp = camera_data->vp * mesh->transform.World();
+				glBindBuffer(GL_UNIFORM_BUFFER, trans_ubo);
+				glBufferData(GL_UNIFORM_BUFFER, sizeof(TransformUBO), trans_data, GL_DYNAMIC_DRAW);
+				mesh->render();
+			}
+		}
+
 	}
 
 	// Screen pass to default framebuffer

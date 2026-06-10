@@ -70,17 +70,6 @@ using namespace indigo_log;
 #include "graphics/subsystem.h"
 #include "graphics/renderer.h"
 
-// common assets components
-#include "common/editor_interfaces.h"
-
-#include "common/transform.h"
-#include "common/module.h"
-#include "common/camera.h"
-#include "common/light.h"
-#include "common/texture.h"
-#include "common/material.h"
-#include "common/mesh.h"
-
 // backend specific, this will be quite useless...
 #ifdef BACKEND_OPENGL
 
@@ -89,9 +78,23 @@ using namespace indigo_log;
 
 #endif
 
+// common assets components
+#include "common/editor_interfaces.h"
+#include "common/resource.h"
+
+#include "common/transform.h"
+#include "common/module.h"
+#include "common/camera.h"
+#include "common/light.h"
+#include "common/model.h"
+#include "common/texture.h"
+#include "common/material.h"
+#include "common/mesh.h"
+
 // Modules
 #include "modules/editor.h"
 #include "modules/editor_camera_controller.h"
+#include "modules/resource_manager.h"
 
 //render subsystems -> game code actually
 #include "graphics/subsystem/skydome_trace.h"

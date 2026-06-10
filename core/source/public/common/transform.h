@@ -39,10 +39,17 @@ struct Transform : public EditorInterface
     void SetFromMatrix(const glm::mat4& transform);
 
     // Editor
-    virtual const std::string get_name() override { return name; }
+    virtual const std::string& get_name() override { return name; }
     virtual void interface_component() override;
 
+    // Hierarchy
+    void set_parent(std::shared_ptr<Transform> _transform);
+    const std::unordered_map<std::string, std::shared_ptr<Transform>> get_children() const { return children; }
+
 private:
+    std::shared_ptr<Transform> parent;
+    std::unordered_map<std::string, std::shared_ptr<Transform>> children;
+
     glm::vec3 m_translation = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 m_scale = glm::vec3(1.0f, 1.0f, 1.0f);
     glm::quat m_rotation = glm::identity<glm::quat>();
@@ -53,3 +60,5 @@ private:
     void SetMatrixDirty();
 
 };
+
+//IMGUI_REFLECT(Transform, m_translation, m_scale, m_rotation);

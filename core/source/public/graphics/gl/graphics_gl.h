@@ -19,16 +19,6 @@ GLenum glCheckError_(const char* file, int line);
 
 void label_gl(GLenum type, GLuint name, const std::string& label);
 
-// file parsing, need to abstract later
-std::string GetBaseDir(const std::string& filepath);
-bool FileExists(const std::string& abs_filename);
-void CalcNormal(float N[3], float v0[3], float v1[3], float v2[3]);
-bool LoadObjAndConvert(float bmin[3], float bmax[3],
-    std::vector<Mesh>* meshes,
-    std::vector<tinyobj::material_t>& materials,
-    std::map<std::string, GLuint>& textures,
-    const char* filename);
-
 // from learnopengl.com (16.03.2026)
 static void draw_quad(uint32 use_texture = 0)
 {

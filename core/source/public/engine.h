@@ -24,7 +24,9 @@ public:
 
 	std::shared_ptr<Camera> get_active_camera() const { return active_camera; }
 	std::shared_ptr<Window> get_window() const { return window; }
+	std::shared_ptr<FileIO> get_file_io() const { return file_io; }
 	std::shared_ptr<Renderer> get_renderer() const { return renderer; }
+	std::shared_ptr<ResourceManager> get_resource_manager() const { return resource_manager; }
 
 	// register module to be called on in tick, fixed_tick, etc...
 	template<typename Derived, typename ...Args>
@@ -50,14 +52,31 @@ public:
 		log(Severity::WARNING, "Failed to find module, dunno which one tho... please rewrite this function :(");
 		return nullptr;
 	}
+	std::shared_ptr<Module> get_module(Module* _module = nullptr)
+	{
+		assert(_module);
+
+		for (const auto& module : modules)
+		{
+			if(module && module.get() == _module)
+			{
+				return module;
+			}
+		}
+		log(Severity::WARNING, "Failed to find module, dunno which one tho... please rewrite this function :(");
+		return nullptr;
+	}
+
 
 private:
 	void tick(float _delta);
 	void fixed_tick();
 
-	std::shared_ptr<Camera> active_camera;
+	std::shared_ptr<Camera> active_camera{ nullptr };
 	std::shared_ptr<Window> window{ nullptr };
+	std::shared_ptr<FileIO> file_io{ nullptr };
 	std::shared_ptr<Renderer> renderer{ nullptr };
+	std::shared_ptr<ResourceManager> resource_manager{ nullptr };
 
 	std::vector<std::shared_ptr<Module>> modules;
 

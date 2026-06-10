@@ -97,6 +97,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="source\private\common\transform.cpp" />
+    <ClCompile Include="source\private\utils\file_handler.cpp" />
+    <ClCompile Include="source\private\common\model.cpp" />
+    <ClCompile Include="source\private\modules\resource_manager.cpp" />
+    <ClCompile Include="source\private\graphics\gl\texture_gl.cpp" />
+    <ClCompile Include="source\private\common\material.cpp" />
+    <ClCompile Include="source\private\common\resource.cpp" />
+    <ClCompile Include="source\private\common\module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\include\fmt\include\fmt\args.h" />
@@ -469,6 +476,8 @@
     <ClInclude Include="source\public\common\editor_interfaces.h" />
     <ClInclude Include="source\public\common\light.h" />
     <ClInclude Include="source\public\common\material.h" />
+    <ClInclude Include="source\public\common\model.h" />
+    <ClInclude Include="source\public\common\resource.h" />
     <ClInclude Include="source\public\common\texture.h" />
     <ClInclude Include="source\public\graphics\gl\graphics_gl.h" />
     <ClInclude Include="source\public\graphics\gl\uniforms_gl.h" />
@@ -484,6 +493,7 @@
     <ClInclude Include="source\public\graphics\subsystem.h" />
     <ClInclude Include="source\public\graphics\subsystem\mesh_renderer.h" />
     <ClInclude Include="source\public\common\module.h" />
+    <ClInclude Include="source\public\modules\resource_manager.h" />
     <ClInclude Include="source\public\precomp.h" />
     <ClInclude Include="source\public\common\transform.h" />
     <ClInclude Include="source\public\utils\common.h" />
