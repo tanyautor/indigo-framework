@@ -2,83 +2,114 @@
 
 void Transform::SetFromMatrix(const mat4& m44)
 {
-    m_translation.x = m44[3][0];
-    m_translation.y = m44[3][1];
-    m_translation.z = m44[3][2];
+	m_translation.x = m44[3][0];
+	m_translation.y = m44[3][1];
+	m_translation.z = m44[3][2];
 
-    m_scale.x = length(vec3(m44[0][0], m44[0][1], m44[0][2]));
-    m_scale.y = length(vec3(m44[1][0], m44[1][1], m44[1][2]));
-    m_scale.z = length(vec3(m44[2][0], m44[2][1], m44[2][2]));
+	m_scale.x = length(vec3(m44[0][0], m44[0][1], m44[0][2]));
+	m_scale.y = length(vec3(m44[1][0], m44[1][1], m44[1][2]));
+	m_scale.z = length(vec3(m44[2][0], m44[2][1], m44[2][2]));
 
-    mat4 myrot(m44[0][0] / m_scale.x,
-        m44[0][1] / m_scale.x,
-        m44[0][2] / m_scale.x,
-        0,
-        m44[1][0] / m_scale.y,
-        m44[1][1] / m_scale.y,
-        m44[1][2] / m_scale.y,
-        0,
-        m44[2][0] / m_scale.z,
-        m44[2][1] / m_scale.z,
-        m44[2][2] / m_scale.z,
-        0,
-        0,
-        0,
-        0,
-        1);
-    m_rotation = quat_cast(myrot);
+	mat4 myrot(m44[0][0] / m_scale.x,
+		m44[0][1] / m_scale.x,
+		m44[0][2] / m_scale.x,
+		0,
+		m44[1][0] / m_scale.y,
+		m44[1][1] / m_scale.y,
+		m44[1][2] / m_scale.y,
+		0,
+		m44[2][0] / m_scale.z,
+		m44[2][1] / m_scale.z,
+		m44[2][2] / m_scale.z,
+		0,
+		0,
+		0,
+		0,
+		1);
+	m_rotation = quat_cast(myrot);
 
-    SetMatrixDirty();
+	SetMatrixDirty();
 }
 
 void Transform::SetMatrixDirty()
 {
-    m_worldMatrixDirty = true;
+	m_worldMatrixDirty = true;
+
+	for (auto& child : children)
+	{
+		child.second->SetMatrixDirty();
+	}
 }
 
 const glm::mat4& Transform::World()
 {
-    if (m_worldMatrixDirty)
-    {
-        const auto translation = glm::translate(glm::mat4(1.0f), m_translation);
-        const auto rotation = glm::toMat4(m_rotation);
-        const auto scale = glm::scale(glm::mat4(1.0f), m_scale);
-        m_worldMatrix = translation * rotation * scale;
-        m_worldMatrixDirty = false;
-    }
+	if (m_worldMatrixDirty)
+	{
+		const auto translation = glm::translate(glm::mat4(1.0f), m_translation);
+		const auto rotation = glm::toMat4(m_rotation);
+		const auto scale = glm::scale(glm::mat4(1.0f), m_scale);
 
-    return m_worldMatrix;
+		if (parent)
+		{
+			const mat4& world = parent->World();
+			m_worldMatrix = world * translation * rotation * scale;
+		}
+		else
+		{
+			m_worldMatrix = translation * rotation * scale;
+		}
+
+		m_worldMatrixDirty = false;
+	}
+
+	return m_worldMatrix;
+}
+
+void Transform::set_parent(std::shared_ptr<Transform> _transform)
+{
+	// current parent still valid, remove self from children
+
+	if (parent)
+	{
+		parent->children.erase(parent->children.find(name));
+	}
+
+	parent = _transform;
+	auto self = std::shared_ptr<Transform>(this);
+	parent->children.insert({ name, self });
 }
 
 #ifdef INDIGO_EDITOR
-void Transform::interface_component() 
+void Transform::interface_component()
 {
-    vec3 translation = GetTranslation();
-    quat rotation = GetRotation();
-    vec3 scale = GetScale();
+	vec3 translation = GetTranslation();
+	quat rotation = GetRotation();
+	vec3 scale = GetScale();
 
-    ImGui::Text("Translation");
-    if (ImGui::InputFloat3(("##Translation" + name).c_str(),
-        glm::value_ptr(translation),
-        "%.2f"))
-    {
-        SetTranslation(translation);
-    }
-    ImGui::Text("Rotation");
-    if (ImGui::InputFloat4(("##Rotation" + name).c_str(),
-        glm::value_ptr(rotation),
-        "%.2f"))
-    {
-        SetRotation(rotation);
-    }
-    ImGui::Text("Scale");
-    if (ImGui::InputFloat3(("##Scale" + name).c_str(),
-        glm::value_ptr(scale),
-        "%.2f"))
-    {
-        SetScale(scale);
-    }
+	ImGui::Text("Translation");
+	if (ImGui::InputFloat3(("##Translation" + name).c_str(),
+		glm::value_ptr(translation),
+		"%.2f"))
+	{
+		SetTranslation(translation);
+	}
+	ImGui::Text("Rotation");
+	if (ImGui::InputFloat4(("##Rotation" + name).c_str(),
+		glm::value_ptr(rotation),
+		"%.2f"))
+	{
+		SetRotation(rotation);
+	}
+	ImGui::Text("Scale");
+	if (ImGui::InputFloat3(("##Scale" + name).c_str(),
+		glm::value_ptr(scale),
+		"%.2f"))
+	{
+		SetScale(scale);
+	}
 }
+
+
 #else
 void Transform::interface_component() {}
 #endif // INDIGO_EDITOR

@@ -1,17 +1,17 @@
 #pragma once
 
 
-class EditorCameraController : public Module, public EditorWindow
+class EditorCameraController : public Module
 {
 public:
-	EditorCameraController() { name = "EditorCameraController"; }
+	EditorCameraController() : Module() { name = "EditorCameraController"; }
 
 	virtual void init() override;
 	virtual void tick(float _delta) override;
 	virtual void shutdown() override;
 
 	virtual void interface_window() override;
-	virtual const std::string get_title() override { return name; }
+	virtual const std::string& get_title() override { return name; }
 
 protected:
 	glm::vec2 prev_mouse_pos{ 0,0 };

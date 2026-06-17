@@ -1,7 +1,9 @@
 #include "precomp.h"
 
 void EditorCameraController::init()
-{ 
+{
+	register_self();
+
 	auto camera = engine.get_active_camera();
 	valid_ptr(camera)
 

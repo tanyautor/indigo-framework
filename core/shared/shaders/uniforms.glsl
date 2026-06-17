@@ -44,8 +44,8 @@ layout (std140, binding = POINT_LIGHT_UBO) uniform PointLightUBO
     PointLight point_light;
 };
 
-#ifdef INDIGO
-// very volatile this here...
-IMGUI_REFLECT(DirectionalLight, direction, color, intensity)
-IMGUI_REFLECT(PointLight, position, color, intensity)
-#endif
+//#ifdef INDIGO_EDITOR
+//// very volatile this here...
+//IMGUI_REFLECT(DirectionalLight, direction, color, intensity)
+//IMGUI_REFLECT(PointLight, position, color, intensity)
+//#endif

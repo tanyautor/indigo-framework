@@ -15,7 +15,7 @@ public:
 	virtual void base_pass() override;
 	//virtual void post_process_pass() override;
 
-	std::vector<Mesh> meshes;
+	std::vector<std::weak_ptr<Model>> models;
 
 private:
 	Shader forward_pass;
