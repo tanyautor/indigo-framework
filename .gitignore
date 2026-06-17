@@ -8,6 +8,9 @@
 */bin
 
 */examples/indigo-playground/shared
+*/examples/indigo-playground/saved
+
+*.bin
 
 # Build results
 x64/
