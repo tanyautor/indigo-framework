@@ -33,7 +33,7 @@ public:
 		}
 	}
 
-	Framebuffer* get_default_framebuffer();
+	std::shared_ptr<Framebuffer> get_default_framebuffer();
 	void bind_default_framebuffer();
 	void bind_backbuffer();
 
@@ -62,7 +62,7 @@ public:
 				return ret;
 			}
 		}
-		log(FATAL, "could not find subsystem of type {}", typeid(Derived).name());
+		log(Fatal, "could not find subsystem of type {}", typeid(Derived).name());
 		// this will likely crash :3
 	}
 #pragma warning( pop )
@@ -76,5 +76,5 @@ private:
 
 	std::vector<Subsystem*> subsystems;
 
-	struct Framebuffer* default_framebuffer{ nullptr };
+	std::shared_ptr<Framebuffer> default_framebuffer;
 };

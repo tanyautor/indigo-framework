@@ -5,11 +5,19 @@ SkydomeTrace::SkydomeTrace()
 	skydome_trace = Shader("shared/shaders/skydome_trace.vert", "shared/shaders/skydome_trace.frag");
 
 	// Framebuffer 
-	framebuffer = new Framebuffer("SkydomeTrace FBO");
+	framebuffer = std::make_shared<Framebuffer>("SkydomeTrace FBO");
 
 	// testing everything, probs only need color and render in the end
 	framebuffer->init_color_buffer(GL_TEXTURE_2D);
 	framebuffer->init_depth_stencil(GL_RENDERBUFFER);
+	if (!framebuffer->check_complete())
+	{
+		log(Error, "framebuffer failed to init");
+	}
+	else
+	{
+		engine.get_window()->viewports.push_back(framebuffer);
+	}
 
 	// CameraData
 	auto camera = engine.get_active_camera();
@@ -32,7 +40,7 @@ SkydomeTrace::SkydomeTrace()
 	float* src = stbi_loadf(filename.c_str(), &x, &y, &bpp, 0);
 	if (!src)
 	{
-		log(ERROR, "failed to load skydome file {}", filename);
+		log(Error, "failed to load skydome file {}", filename);
 	}
 	skydome_width = x;
 	skydome_height = y;
@@ -71,8 +79,6 @@ void SkydomeTrace::base_pass()
 
 	//Draw to Framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer->fbo);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
 
 	skydome_trace.use_shader();
 
@@ -86,7 +92,10 @@ void SkydomeTrace::base_pass()
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, skydome);
+	glCheckError();
+
 	screen_pass_trace();
+	glCheckError();
 
 
 	// Screen pass to default framebuffer

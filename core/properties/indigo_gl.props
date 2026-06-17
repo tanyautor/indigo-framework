@@ -11,10 +11,10 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);BACKEND_OPENGL</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IndigoDirectory)external/include/glad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
+    <Library>
       <SubSystem>Console</SubSystem>
 		<AdditionalLibraryDirectories>$(IndigoDirectory)external/lib/GLFW/lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-		<AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
+		<AdditionalDependencies>opengl32.lib;glfw3.lib;</AdditionalDependencies>
+    </Library>
   </ItemDefinitionGroup>
 </Project>

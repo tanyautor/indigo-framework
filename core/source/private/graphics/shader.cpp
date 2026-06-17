@@ -31,7 +31,7 @@ namespace indigo_files
         // check for circular includes
         if (_includes.count(fullpath))
         {
-            log(ERROR, "found circular include in {}", _path);
+            log(Error, "found circular include in {}", _path);
             return std::string();
         }
 
@@ -43,7 +43,7 @@ namespace indigo_files
         std::string in_shader_src = read_txt_file(fullpath);
         if (in_shader_src.empty())
         {
-            log(ERROR, "Shader file not found! Path: {}", fullpath);
+            log(Error, "Shader file not found! Path: {}", fullpath);
             return std::string();
         }
 

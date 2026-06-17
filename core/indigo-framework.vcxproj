@@ -470,6 +470,7 @@
     <ClInclude Include="external\include\stb_image\stb_tilemap_editor.h" />
     <ClInclude Include="external\include\stb_image\stb_truetype.h" />
     <ClInclude Include="external\include\stb_image\stb_voxel_render.h" />
+    <ClInclude Include="external\include\tinygltf\tiny_gltf.h" />
     <ClInclude Include="external\include\tinyobjloader\mapbox\earcut.hpp" />
     <ClInclude Include="external\include\tinyobjloader\tiny_obj_loader.h" />
     <ClInclude Include="resource.h" />

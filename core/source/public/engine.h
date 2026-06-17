@@ -49,7 +49,7 @@ public:
 				return derived_module;
 			}
 		}
-		log(Severity::WARNING, "Failed to find module, dunno which one tho... please rewrite this function :(");
+		log(Severity::Warning, "Failed to find module, dunno which one tho... please rewrite this function :(");
 		return nullptr;
 	}
 	std::shared_ptr<Module> get_module(Module* _module = nullptr)
@@ -63,7 +63,7 @@ public:
 				return module;
 			}
 		}
-		log(Severity::WARNING, "Failed to find module, dunno which one tho... please rewrite this function :(");
+		log(Severity::Warning, "Failed to find module, dunno which one tho... please rewrite this function :(");
 		return nullptr;
 	}
 

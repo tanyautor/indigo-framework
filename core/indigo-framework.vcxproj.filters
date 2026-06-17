@@ -1322,6 +1322,9 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="external\include\tinygltf\tiny_gltf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\lib\GLFW\lib-vc2019\glfw3.lib" />

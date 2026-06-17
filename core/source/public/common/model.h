@@ -2,6 +2,7 @@
 
 struct Image;
 struct Sampler;
+struct Texture;
 struct Material;
 class Mesh;
 
@@ -25,18 +26,23 @@ public:
 	std::vector<std::shared_ptr<Material>> materials;
 	std::vector<std::shared_ptr<Image>> images;
 	std::vector<std::shared_ptr<Sampler>> samplers;
+	std::vector<std::shared_ptr<Texture>> textures;
 
 	Transform transform;
-	FileStream original_file;
+	std::unique_ptr<FileStream> original_file;
+
+	//gltf specific
+	const tinygltf::Model& get_gltf_model() const { return model; }
 
 	// wavefront specific
-	tinyobj::material_t get_wavefront_material(int32 _index) const { return wavefront_materials[_index]; }
-	tinyobj::shape_t get_wavefront_shapes(int32 _index) const { return wavefront_shapes[_index]; }
-	std::vector<uint32> get_wavefront_indices() const { return wavefront_indices; }
-	std::vector<float> get_wavefront_buffer_pos() const { return wavefront_buffer_pos; }
-	std::vector<float> get_wavefront_buffer_norm() const { return wavefront_buffer_norm; }
-	std::vector<float> get_wavefront_buffer_color() const { return wavefront_buffer_color; }
-	std::vector<float> get_wavefront_buffer_texcoord() const { return wavefront_buffer_texcoord; }
+	const tinyobj::material_t& get_wavefront_material(int32 _index) const { return wavefront_materials[_index]; }
+	const tinyobj::shape_t& get_wavefront_shapes(int32 _index) const { return wavefront_shapes[_index]; }
+	const std::vector<uint32>& get_wavefront_indices() const { return wavefront_indices; }
+	const std::vector<float>& get_wavefront_buffer_pos() const { return wavefront_buffer_pos; }
+	const std::vector<float>& get_wavefront_buffer_norm() const { return wavefront_buffer_norm; }
+	const std::vector<float>& get_wavefront_buffer_color() const { return wavefront_buffer_color; }
+	const std::vector<float>& get_wavefront_buffer_texcoord() const { return wavefront_buffer_texcoord; }
+
 
 	std::shared_ptr<Image> get_image(int32 _index) const { return images[_index]; }
 	std::shared_ptr<Sampler> get_sampler(int32 _index) const { return samplers[_index]; }
@@ -46,6 +52,7 @@ public:
 	virtual void interface_component() {}
 
 private:
+	tinygltf::Model model;
 
 	std::vector<uint32> wavefront_indices;  // pos(3float)
 	std::vector<float> wavefront_buffer_pos;  // pos(3float)

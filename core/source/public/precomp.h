@@ -15,12 +15,24 @@
 #include <set>
 #include <regex>
 
+
 // fmt https://github.com/fmtlib/fmt (29.10.2025)
 #define FMT_HEADER_ONLY
 #include "fmt/include/fmt/core.h"
 
 // magic_enum https://github.com/Neargye/magic_enum/tree/master (29.10.2025)
 #include "magic_enum/magic_enum.hpp"
+
+// glm https://github.com/g-truc/glm (29.10.2025) 
+//#define GLM_FORCE_LEFT_HANDED
+#define GLM_ENABLE_EXPERIMENTAL
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/matrix_inverse.hpp"
+#include "glm/gtx/quaternion.hpp"
+#include "glm/gtc/type_ptr.hpp"
+#include "glm/gtx/euler_angles.hpp"
+using namespace glm;
 
 // imgui
 #ifdef INDIGO_EDITOR
@@ -37,18 +49,6 @@
 
 #endif
 
-// glm https://github.com/g-truc/glm (29.10.2025) 
-#define GLM_FORCE_LEFT_HANDED
-#define GLM_ENABLE_EXPERIMENTAL
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/matrix_inverse.hpp"
-#include "glm/gtx/quaternion.hpp"
-#include "glm/gtc/type_ptr.hpp"
-#include "glm/gtx/euler_angles.hpp"
-using namespace glm;
-
-
 // stb_image :)
 // defines in precomp_impls.cpp
 #include "stb_image/stb_image.h"
@@ -58,6 +58,10 @@ using namespace glm;
 // defines in precomp_impls.cpp
 #include "tinyobjloader/tiny_obj_loader.h"
 
+// tiny gltf
+#define TINYGLTF_NO_INCLUDE_STB_IMAGE
+#define TINYGLTF_NO_INCLUDE_STB_IMAGE_WRITE
+#include "tinygltf/tiny_gltf.h"
 
 // utils
 #include "common.h"

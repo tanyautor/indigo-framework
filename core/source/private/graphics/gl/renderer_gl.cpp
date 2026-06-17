@@ -9,9 +9,14 @@ struct Renderer::Impl
 // device specific definitions
 Renderer::Renderer()
 {
-    default_framebuffer = new Framebuffer("Default Framebuffer");
+
+    default_framebuffer = std::make_shared<Framebuffer>("Viewport");
     default_framebuffer->init_color_buffer(GL_TEXTURE_2D);
     default_framebuffer->init_depth_stencil(GL_RENDERBUFFER);
+
+    // assign and check for completion of viewport
+    engine.get_window()->viewports.push_back(default_framebuffer);
+    assert(default_framebuffer->check_complete());
 }
 
 Renderer::~Renderer()
@@ -24,7 +29,7 @@ Renderer::~Renderer()
     bool empty = subsystems.empty();
 }
 
-Framebuffer* Renderer::get_default_framebuffer()
+std::shared_ptr<Framebuffer> Renderer::get_default_framebuffer()
 {
     return default_framebuffer;
 }
@@ -50,9 +55,9 @@ void Renderer::end_frame()
 {
     // screen pass to back buffer
     bind_backbuffer();
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(default_framebuffer->color_buffer_access, default_framebuffer->color_buffer.value());
-
     draw_quad();
 
     glCheckError();

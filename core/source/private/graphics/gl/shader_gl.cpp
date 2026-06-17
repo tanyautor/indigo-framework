@@ -41,7 +41,7 @@ Shader::Shader(std::string _vertex_path, std::string _fragment_path) : Shader()
 
     init_fragment(vertex_source, fragment_source);
     if (!is_valid())
-        log(ERROR, "error thrown compiling files: \n{}\n{}", _vertex_path, _fragment_path);
+        log(Error, "error thrown compiling files: \n{}\n{}", _vertex_path, _fragment_path);
 
     label_gl(GL_PROGRAM, pImpl->id, _fragment_path.c_str());
 }
@@ -51,7 +51,7 @@ Shader::Shader(std::string _compute_path) : Shader()
 
     init_compute(compute_source);
     if (!is_valid())
-        log(ERROR, "error thrown compiling file: \n{}", _compute_path);
+        log(Error, "error thrown compiling file: \n{}", _compute_path);
 
     label_gl(GL_PROGRAM, pImpl->id, _compute_path.c_str());
 }
@@ -78,7 +78,7 @@ void Shader::init_fragment(std::string _vertex_src, std::string _fragment_src)
 {
     if (is_valid())
     {
-        log(WARNING, "cannot create shader twice, shader is already valid...");
+        log(Warning, "cannot create shader twice, shader is already valid...");
         return;
     }
     sh_vert vertex{ 0 };
@@ -92,8 +92,8 @@ void Shader::init_fragment(std::string _vertex_src, std::string _fragment_src)
     {
         char infoLog[shader_dbg_msg_len];
         glGetShaderInfoLog(vertex, shader_dbg_msg_len, NULL, infoLog);
-        log(ERROR, "vertex shader compilation failed: \n{}", infoLog);
-        log(ERROR, "shader source: \n{}", _vertex_src.c_str());
+        log(Error, "vertex shader compilation failed: \n{}", infoLog);
+        log(Error, "shader source: \n{}", _vertex_src.c_str());
     }
 
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
@@ -101,8 +101,8 @@ void Shader::init_fragment(std::string _vertex_src, std::string _fragment_src)
     {
         char infoLog[shader_dbg_msg_len];
         glGetShaderInfoLog(vertex, shader_dbg_msg_len, NULL, infoLog);
-        log(ERROR, "fragment shader compilation failed: \n{}", infoLog);
-        log(ERROR, "shader source: \n{}", _fragment_src.c_str());
+        log(Error, "fragment shader compilation failed: \n{}", infoLog);
+        log(Error, "shader source: \n{}", _fragment_src.c_str());
     }
 
     // link & create program
@@ -119,7 +119,7 @@ void Shader::init_fragment(std::string _vertex_src, std::string _fragment_src)
     if (!success)
     {
         glGetProgramInfoLog(program, 512, NULL, infoLog);
-        log(ERROR, "shader program failed to link: \n{}", infoLog);
+        log(Error, "shader program failed to link: \n{}", infoLog);
 
         glDeleteProgram(program);
     }
@@ -138,7 +138,7 @@ void Shader::init_compute(std::string _compute_src)
 {
     if (is_valid())
     {
-        log(WARNING, "cannot create shader twice, shader is already valid...");
+        log(Warning, "cannot create shader twice, shader is already valid...");
         return;
     }
 
@@ -151,8 +151,8 @@ void Shader::init_compute(std::string _compute_src)
     {
         char infoLog[shader_dbg_msg_len];
         glGetShaderInfoLog(compute, shader_dbg_msg_len, NULL, infoLog);
-        log(ERROR, "compute shader compilation failed: \n{}", infoLog);
-        log(ERROR, "shader source: \n{}", _compute_src.c_str());
+        log(Error, "compute shader compilation failed: \n{}", infoLog);
+        log(Error, "shader source: \n{}", _compute_src.c_str());
     }
 
     // link & create program
@@ -168,7 +168,7 @@ void Shader::init_compute(std::string _compute_src)
     if (!success)
     {
         glGetProgramInfoLog(program, 512, NULL, infoLog);
-        log(ERROR, "shader program failed to link: \n{}", infoLog);
+        log(Error, "shader program failed to link: \n{}", infoLog);
 
         glDeleteProgram(program);
     }

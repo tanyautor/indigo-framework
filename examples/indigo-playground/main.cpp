@@ -16,6 +16,7 @@ public:
 
 	std::shared_ptr<Model> mrvoyage;
 	std::shared_ptr<Model> leg;
+	std::shared_ptr<Model> cube;
 protected:
 
 
@@ -28,7 +29,7 @@ int main()
 	auto game = engine.get_module<GameModule>();
 	if(game)
 	{
-		log(Severity::INFO, "GameModule found!!");
+		log(Severity::Info, "GameModule found!!");
 	}
 
 	engine.init();
@@ -44,7 +45,7 @@ int main()
 
 void GameModule::init()
 {
-	log(Severity::INFO, "GameModule init.");
+	log(Severity::Info, "GameModule init.");
 	register_self();
 
 	engine.get_renderer()->register_subsystem<SkydomeTrace>();
@@ -53,11 +54,15 @@ void GameModule::init()
 
 	mrvoyage = engine.get_resource_manager()->create_resource<Model>(FileStream::Directory::Shared, "models/Bomb Voyage/boss_bombvoyage_BV_bind.obj");
 	leg = engine.get_resource_manager()->create_resource<Model>(FileStream::Directory::Shared, "models/LEG/LEG.obj");
+	cube = engine.get_resource_manager()->create_resource<Model>(FileStream::Directory::Shared, "models/Cube/Cube.gltf");
+
 	engine.get_renderer()->get_subsystem<MeshRenderer>()->models.push_back(mrvoyage);
 	engine.get_renderer()->get_subsystem<MeshRenderer>()->models.push_back(leg);
+	engine.get_renderer()->get_subsystem<MeshRenderer>()->models.push_back(cube);
 
 	leg->transform.SetTranslation({ -10,10,0 });
 	leg->transform.SetScale({ 5.f,5.f,5.f });
+	cube->transform.SetTranslation({ 10,0,0 });
 }
 
 void GameModule::tick(float _delta)
@@ -74,7 +79,7 @@ void GameModule::fixed_tick()
 }
 void GameModule::shutdown()
 {
-	log(Severity::INFO, "GameModule shutdown.");
+	log(Severity::Info, "GameModule shutdown.");
 }
 
 void GameModule::interface_window()

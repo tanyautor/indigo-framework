@@ -8,6 +8,6 @@
 #define valid_ptr(x)																	\
 	if(!(x))																			\
 	{																					\
-		log(Severity::ERROR, "ptr invalid file: {}, line: {}", __FILE__, __LINE__);		\
+		log(Severity::Error, "ptr invalid file: {}, line: {}", __FILE__, __LINE__);		\
 		return;																			\
 	}

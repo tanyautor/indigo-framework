@@ -13,6 +13,8 @@ struct Framebuffer
 
 	bool check_complete();
 
+	void resize_framebuffer(uint32 _width, uint32 _height);
+
 	uint32 fbo{ 0 };
 
 	/// attached textures
@@ -28,7 +30,6 @@ struct Framebuffer
 	uint32 width{ 0 };
 	uint32 height{ 0 };
 
-private:
 	std::string rdg_label{};
 };
 
@@ -47,6 +48,8 @@ public:
 
 	void begin_frame();
 	void end_frame();
+
+	std::vector<std::shared_ptr<Framebuffer>> viewports;
 
 private:
 	struct Impl;

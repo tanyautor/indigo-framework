@@ -38,14 +38,16 @@ void EditorCameraController::init()
 	}
 	else
 	{
-		log(Severity::WARNING, "active camera already instantiated, skipping loading from saved bin");
+		log(Severity::Warning, "active camera already instantiated, skipping loading from saved bin");
 	}
 }
 
 void EditorCameraController::tick(float _delta)
 {
 	auto camera = engine.get_active_camera();
+	auto window = engine.get_window();
 	valid_ptr(camera)
+	valid_ptr(window)
 
 	glm::vec3 position = camera->transform.GetTranslation();
 	glm::quat rotation = camera->transform.GetRotation();

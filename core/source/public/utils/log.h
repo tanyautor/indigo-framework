@@ -4,10 +4,10 @@ namespace indigo_log
 {
 	enum Severity : uint32
 	{
-		INFO = 0,
-		WARNING = 1,
-		ERROR = 2,
-		FATAL = 3,
+		Info = 0,
+		Warning = 1,
+		Error = 2,
+		Fatal = 3,
 	};
 
 	static constexpr auto magenta = "\033[35m";
@@ -20,16 +20,16 @@ namespace indigo_log
 	{
 		switch (_ser)
 		{
-		case indigo_log::INFO:
+		case indigo_log::Info:
 			return green;
 			break;
-		case indigo_log::WARNING:
+		case indigo_log::Warning:
 			return yellow;
 			break;
-		case indigo_log::ERROR:
+		case indigo_log::Error:
 			return red;
 			break;
-		case indigo_log::FATAL:
+		case indigo_log::Fatal:
 			return magenta;
 			break;
 		default:

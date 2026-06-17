@@ -52,4 +52,5 @@ public:
 
 	// Index Data
 	int32 num_indices = -1;
+	int32 index_type = -1;
 };

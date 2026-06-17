@@ -1,6 +1,6 @@
 #pragma once
 
-class EditorInterface
+struct EditorInterface
 {
 public:
 	// return std::string("name"), no need to make this a member
@@ -20,5 +20,6 @@ public:
 
 protected:
 	void clean_up();
+
 	std::vector<std::shared_ptr<EditorInterface>> registered_interfaces;
 };

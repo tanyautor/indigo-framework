@@ -3,13 +3,22 @@
 // callbacks
 static void error_callback(int error, const char* description)
 {
-    log(ERROR, "glfw msg: %s", description);
+    log(Error, "glfw msg: %s", description);
 }
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+
+    // resized viewport currently used
+    for (auto buffer : engine.get_window()->viewports)
+    {
+        buffer->resize_framebuffer(width, height);
+    }
+
+    if(height > 0)
+        engine.get_active_camera()->projection = glm::perspective(glm::radians(45.f), (float)width / (float)height, 0.1f, 100.f);
 }
 
 GLenum glCheckError_(const char* file, int line)
@@ -29,7 +38,7 @@ GLenum glCheckError_(const char* file, int line)
         case GL_INVALID_FRAMEBUFFER_OPERATION: error = "INVALID_FRAMEBUFFER_OPERATION"; break;
         }
 
-        log(ERROR, "{} | {} ({})", error, file, line);
+        log(Error, "{} | {} ({})", error, file, line);
     }
     return errorCode;
 }
@@ -117,12 +126,15 @@ Framebuffer::~Framebuffer()
 }
 bool Framebuffer::init_color_buffer(uint32 _access)
 {
-    if(color_buffer.has_value())
-    {
-        log(ERROR, "trying to init_texturebuffer twice");
-        return false;
-    }
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+    // delete existing buffer
+    if (color_buffer.has_value())
+    {
+        uint32 _buffer[1]{ color_buffer.value() };
+        glDeleteTextures(1, _buffer);
+        glCheckError();
+    }
 
     color_buffer = 0;
     color_buffer_access = _access;
@@ -172,12 +184,15 @@ bool Framebuffer::init_color_buffer(uint32 _access)
 }
 bool Framebuffer::init_depth_stencil(uint32 _access)
 {
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+    // delete existing buffer
     if (depth_stencil.has_value())
     {
-        log(ERROR, "trying to init_depth_stencil twice");
-        return false;
+        uint32 _buffer[1]{ depth_stencil.value() };
+        glDeleteTextures(1, _buffer);
+        glCheckError();
     }
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
     depth_stencil = 0;
     depth_stencil_access = _access;
@@ -229,6 +244,47 @@ bool Framebuffer::check_complete()
     glCheckError();
     return glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
 }
+void Framebuffer::resize_framebuffer(uint32 _width, uint32 _height)
+{
+    if (width == _width && height == _height) return;
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    // delete old buffers
+    if (color_buffer.has_value())
+    {
+        if (color_buffer_access == GL_TEXTURE_2D)    glDeleteTextures(1, &color_buffer.value());
+        if (color_buffer_access == GL_RENDERBUFFER)  glDeleteRenderbuffers(1, &color_buffer.value());
+        color_buffer = std::nullopt;
+    }
+
+    if (depth_stencil.has_value())
+    {
+        if (depth_stencil_access == GL_TEXTURE_2D)    glDeleteTextures(1, &depth_stencil.value());
+        if (depth_stencil_access == GL_RENDERBUFFER)  glDeleteRenderbuffers(1, &depth_stencil.value());
+        depth_stencil = std::nullopt;
+    }
+
+    glDeleteFramebuffers(1, &fbo);
+    fbo = 0;
+
+    // assign new size and create new buffers
+    width = _width;
+    height = _height;
+
+    glGenFramebuffers(1, &fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+    label_gl(GL_FRAMEBUFFER, fbo, rdg_label.c_str());
+    glCheckError();
+
+    init_color_buffer(color_buffer_access);
+    init_depth_stencil(depth_stencil_access);
+
+    check_complete();
+}
 
 // private Impl
 struct Window::Impl
@@ -246,15 +302,15 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     // Init GLFW
     if(!glfwInit())
     {
-        log(FATAL, "glfwInit failed");
+        log(Fatal, "glfwInit failed");
         assert(false);
     }
 
-    log(INFO, "GLFW version {}.{}.{}", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION);
+    log(Info, "GLFW version {}.{}.{}", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION);
 
     if (!_title)
     {
-        log(FATAL, "_title is a nullptr");
+        log(Fatal, "_title is a nullptr");
         assert(false);
     }
 
@@ -283,11 +339,17 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
 
     if (!pImpl->window)
     {
-        log(FATAL, "window creation failed");
+        log(Fatal, "window creation failed");
         glfwTerminate();
         assert(false);
     }
     pImpl->valid = true;
+
+#ifdef INDIGO_EDITOR
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+#else
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+#endif // INDIGO_EDITOR
 
     //set up additional window attribs
     glfwMakeContextCurrent(pImpl->window);
@@ -307,11 +369,11 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     int major = glfwGetWindowAttrib(pImpl->window, GLFW_CONTEXT_VERSION_MAJOR);
     int minor = glfwGetWindowAttrib(pImpl->window, GLFW_CONTEXT_VERSION_MINOR);
     int revision = glfwGetWindowAttrib(pImpl->window, GLFW_CONTEXT_REVISION);
-    log(INFO, "GLFW OpenGL context version {}.{}.{}", major, minor, revision);
+    log(Info, "GLFW OpenGL context version {}.{}.{}", major, minor, revision);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        log(FATAL, "GLAD failed to initialize OpenGL context");
+        log(Fatal, "GLAD failed to initialize OpenGL context");
         assert(false);
     }
 
@@ -320,11 +382,11 @@ Window::Window(uint32 _width, uint32 _height, const char* _title, bool _fullscre
     const auto* const version = reinterpret_cast<const char*>(glGetString(GL_VERSION));
     const auto* const shaderVersion = reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-    log(INFO, "Initialized GLFW");
-    log(INFO, "OpenGL Vendor {}", vendor);
-    log(INFO, "OpenGL Renderer {}", renderer);
-    log(INFO, "OpenGL Version {}", version);
-    log(INFO, "OpenGL Shader Version {}", shaderVersion);
+    log(Info, "Initialized GLFW");
+    log(Info, "OpenGL Vendor {}", vendor);
+    log(Info, "OpenGL Renderer {}", renderer);
+    log(Info, "OpenGL Version {}", version);
+    log(Info, "OpenGL Shader Version {}", shaderVersion);
     
     //install input mananger
     input.init(pImpl->window);

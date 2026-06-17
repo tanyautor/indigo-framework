@@ -3,11 +3,25 @@
 Model::Model(FileStream::Directory _dir, const std::string& _file) : Resource(ResourceType::Model)
 {
 	// TODO: hard coded to obj files only
-	original_file = engine.get_file_io()->open_file(_dir, FileStream::Type::Wavefront, _file);
 	path = _file;
 	transform.name = _file;
 
-	create_from_obj(original_file);
+	// load file based on extension
+	std::string extension = FileIO::get_file_ext(_file);
+	if(extension == ".obj")
+	{
+		original_file = engine.get_file_io()->open_file(_dir, FileStream::Type::Wavefront, _file);
+		create_from_obj(*original_file);
+	}
+	else if (extension == ".gltf" || extension == ".glb")
+	{
+		original_file = engine.get_file_io()->open_file(_dir, FileStream::Type::GLTF, _file);
+		create_from_gltf(*original_file);
+	}
+	else
+	{
+		log(Error, "tried to load model with unknown extension: {}, full path: {}", extension, FileIO::get_full_path(_dir, _file));
+	}
 }
 
 void Model::create_from_obj(const FileStream& _file)
@@ -31,25 +45,25 @@ void Model::create_from_obj(const FileStream& _file)
 		bool ret = tinyobj::LoadObj(&inattrib, &wavefront_shapes, &wavefront_materials, &warn, &err, fileio->get_full_path(_file).c_str(), base_dir.c_str());
 		if (!warn.empty())
 		{
-			log(WARNING, warn);
+			log(Warning, warn);
 		}
 		if (!err.empty())
 		{
-			log(ERROR, err);
+			log(Error, err);
 		}
 		if (!ret) {
-			log(ERROR, _file.local_path);
+			log(Error, _file.local_path);
 			return;
 		}
 
-		log(INFO, "# of vertices  = {}", (int)(inattrib.vertices.size()) / 3);
-		log(INFO, "# of normals  = {}", (int)(inattrib.normals.size()) / 3);
-		log(INFO, "# of texcoords  = {}", (int)(inattrib.texcoords.size()) / 2);
-		log(INFO, "# of materials  = {}", (int)(wavefront_materials.size()));
-		log(INFO, "# of shapes  = {}", (int)(wavefront_shapes.size()));
+		log(Info, "# of vertices  = {}", (int)(inattrib.vertices.size()) / 3);
+		log(Info, "# of normals  = {}", (int)(inattrib.normals.size()) / 3);
+		log(Info, "# of texcoords  = {}", (int)(inattrib.texcoords.size()) / 2);
+		log(Info, "# of materials  = {}", (int)(wavefront_materials.size()));
+		log(Info, "# of shapes  = {}", (int)(wavefront_shapes.size()));
 
 		for (size_t i = 0; i < wavefront_materials.size(); i++) {
-			log(INFO, "material[{}].diffuse_texname = {}",
+			log(Info, "material[{}].diffuse_texname = {}",
 				int(i), wavefront_materials[i].diffuse_texname.c_str());
 		}
 	}
@@ -250,4 +264,53 @@ void Model::create_from_obj(const FileStream& _file)
 
 void Model::create_from_gltf(const FileStream& _file)
 {
+	tinygltf::TinyGLTF loader;
+	std::string err, warn;
+	std::string full_path = FileIO::get_full_path(_file);
+
+	bool res = loader.LoadASCIIFromFile(&model, &err, &warn, full_path);
+
+	if (!warn.empty())	log(Warning, "tinygltf warning: \n{}", warn);
+	if (!err.empty())	log(Error, "tinygltf warning: \n{}", err);
+	
+	if (res)			log(Info, "loaded gltf: {}", _file.local_path);
+	else				log(Error, "filed to load gltf: {}", _file.local_path);
+
+	auto resource_manager = engine.get_resource_manager();
+
+	// Load images (texture data)
+	for (int i = 0; i < static_cast<int>(model.images.size()); i++)
+	{
+		auto image = resource_manager->load_resource<Image>(*this, i);
+		images.push_back(image);
+	}
+
+	// Load samplers
+	for (int i = 0; i < static_cast<int>(model.samplers.size()); i++)
+	{
+		auto sampler = std::make_shared<Sampler>(*this, i);
+		samplers.push_back(sampler);
+	}
+
+	// Load textures
+	for (int i = 0; i < static_cast<int>(model.textures.size()); i++)
+	{
+		auto texture = std::make_shared<Texture>(*this, i);
+		textures.push_back(texture);
+	}
+
+	// Load materials
+	for (int i = 0; i < static_cast<int>(model.materials.size()); i++)
+	{
+		auto material = resource_manager->load_resource<Material>(*this, i);
+		materials.push_back(material);
+	}	
+	
+	// Load meshes
+	for (int i = 0; i < static_cast<int>(model.meshes.size()); i++)
+	{
+		auto mesh = resource_manager->load_resource<Mesh>(*this, i);
+		meshes.push_back(mesh);
+		mesh->transform.set_parent(std::shared_ptr<Transform>(&transform));
+	}
 }

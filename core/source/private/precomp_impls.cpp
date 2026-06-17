@@ -12,3 +12,6 @@
 // tinyobjloader https://github.com/tinyobjloader/tinyobjloader (1.11.2025)
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tinyobjloader/tiny_obj_loader.h"
+
+#define TINYGLTF_IMPLEMENTATION
+#include "tinygltf/tiny_gltf.h"

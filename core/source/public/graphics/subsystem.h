@@ -23,7 +23,7 @@ public:
 
 	virtual void tick(float _delta_time) {};
 
-	Framebuffer* framebuffer{ nullptr };
+	std::shared_ptr<Framebuffer> framebuffer;
 protected:
 	uint32 priority{ 0 };
 

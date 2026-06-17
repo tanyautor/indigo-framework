@@ -11,6 +11,12 @@ static void set_texture(std::shared_ptr<Texture> _texture, int32 _location)
 }
 static void apply_material(std::shared_ptr<Material> _material)
 {
+	if(!_material)
+	{
+		log(Error, "trying to apply material that is a nullptr... {}, {}", __FILE__, __LINE__);
+		return;
+	}
+
 	if (_material->base_color) set_texture(_material->base_color, BASE_COLOR_SAMPLER_LOCATION);
 
 	if (_material->normal_map) set_texture(_material->normal_map, NORMAL_SAMPLER_LOCATION);
@@ -97,7 +103,7 @@ MeshRenderer::MeshRenderer()
 	glCheckError();
 
 	// Framebuffer 
-	framebuffer = new Framebuffer("MeshRenderer FBO");
+	framebuffer = std::make_shared<Framebuffer>("MeshRenderer FBO");
 
 	// testing everything, probs only need color and render in the end
 	framebuffer->init_color_buffer(GL_TEXTURE_2D);
@@ -105,9 +111,11 @@ MeshRenderer::MeshRenderer()
 
 	if (!framebuffer->check_complete())
 	{
-		log(ERROR, "framebuffer failed to init, deleting it now :3");
-		delete framebuffer;
-		framebuffer = nullptr;
+		log(Error, "framebuffer failed to init");
+	}
+	else
+	{
+		engine.get_window()->viewports.push_back(framebuffer);
 	}
 }
 
@@ -122,7 +130,6 @@ MeshRenderer::~MeshRenderer()
 	float tmp_point[]{ point_light_data->point_light.color[0] ,point_light_data->point_light.color[1] ,point_light_data->point_light.color[2], point_light_data->point_light.position[0] ,point_light_data->point_light.position[1] ,point_light_data->point_light.position[2],point_light_data->point_light.intensity };
 	FileHandler::save_bin("model_renderer_point_light", &tmp_point, sizeof(tmp_point));
 
-	delete framebuffer;
 	delete trans_data;
 	delete camera_data;
 	delete directional_light_data;
