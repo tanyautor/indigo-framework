@@ -465,6 +465,7 @@
     <ClInclude Include="external\include\stb_image\stb_voxel_render.h" />
     <ClInclude Include="external\include\tinyobjloader\mapbox\earcut.hpp" />
     <ClInclude Include="external\include\tinyobjloader\tiny_obj_loader.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="source\public\common\camera.h" />
     <ClInclude Include="source\public\common\editor_interfaces.h" />
     <ClInclude Include="source\public\common\light.h" />
@@ -637,6 +638,12 @@
     <None Include="external\include\glm\gtx\vector_angle.inl" />
     <None Include="external\include\glm\gtx\vector_query.inl" />
     <None Include="external\include\glm\gtx\wrap.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="indigo-framework.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="shared\textures\indigo_ico.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

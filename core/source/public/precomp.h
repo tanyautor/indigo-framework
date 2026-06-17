@@ -22,26 +22,25 @@
 // magic_enum https://github.com/Neargye/magic_enum/tree/master (29.10.2025)
 #include "magic_enum/magic_enum.hpp"
 
+// imgui
 #ifdef INDIGO_EDITOR
-	// imgui
-	#include "imgui/imgui.h"
-	#include "imgui_impl.h"
-	#include "imgui/imgui_internal.h"
-	#include "imgui/misc/cpp/imgui_stdlib.h"
 
-	#include "ImGuizmo/ImGuizmo.h"
+#include "imgui/imgui.h"
+#include "imgui_impl.h"
+#include "imgui/imgui_internal.h"
+#include "imgui/misc/cpp/imgui_stdlib.h"
 
-	#include "ImReflect/single_header/ImReflect.hpp"
-	#include "ImReflect/glm.hpp"
+#include "ImGuizmo/ImGuizmo.h"
+
+#include "ImReflect/single_header/ImReflect.hpp"
+#include "ImReflect/glm.hpp"
+
 #endif
 
 // glm https://github.com/g-truc/glm (29.10.2025) 
 #define GLM_FORCE_LEFT_HANDED
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/glm.hpp"
-
-using namespace glm;
-
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/matrix_inverse.hpp"
 #include "glm/gtx/quaternion.hpp"
@@ -61,9 +60,15 @@ using namespace glm;
 #include "common.h"
 #include "utils/types.h"
 #include "utils/log.h"
-using namespace indigo_log;
 #include "utils/timer.h"
 #include "utils/file_handler.h"
+
+// framework namespaces
+#ifdef INDIGO
+using namespace glm;
+using namespace indigo_log;
+
+#endif // INDIGO
 
 // graphics
 #include "graphics/shader.h"
