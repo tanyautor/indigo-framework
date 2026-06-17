@@ -1,5 +1,22 @@
 #include "precomp.h"
 
+
+static void resize_framebuffers(uint32 _width, uint32 _height)
+{
+    // make sure the viewport matches the new window dimensions; note that width and 
+    // height will be significantly larger than specified on retina displays.
+    glViewport(0, 0, _width, _height);
+
+    // resized viewport currently used
+    for (auto buffer : engine.get_window()->viewports)
+    {
+        buffer->resize_framebuffer(_width, _height);
+    }
+
+    if (_height > 0)
+        engine.get_active_camera()->projection = glm::perspective(glm::radians(45.f), (float)_width / (float)_height, 0.1f, 100.f);
+}
+
 // callbacks
 static void error_callback(int error, const char* description)
 {
@@ -7,18 +24,7 @@ static void error_callback(int error, const char* description)
 }
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    // make sure the viewport matches the new window dimensions; note that width and 
-    // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
-
-    // resized viewport currently used
-    for (auto buffer : engine.get_window()->viewports)
-    {
-        buffer->resize_framebuffer(width, height);
-    }
-
-    if(height > 0)
-        engine.get_active_camera()->projection = glm::perspective(glm::radians(45.f), (float)width / (float)height, 0.1f, 100.f);
+    resize_framebuffers(width, height);
 }
 
 GLenum glCheckError_(const char* file, int line)
@@ -434,4 +440,9 @@ void Window::end_frame()
 
     glfwSwapBuffers(pImpl->window);
     glfwPollEvents();
+}
+
+void Window::resize_viewport(uint32 _width, uint32 _height)
+{
+    resize_framebuffers(_width, _height);
 }

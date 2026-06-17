@@ -71,6 +71,9 @@ using namespace indigo_log;
 #include "utils/timer.h"
 #include "utils/file_handler.h"
 
+#include "common/resource.h"
+#include "common/editor_interfaces.h"
+#include "common/module.h"
 
 // graphics
 #include "graphics/shader.h"
@@ -86,11 +89,7 @@ using namespace indigo_log;
 #endif
 
 // common assets components
-#include "common/editor_interfaces.h"
-#include "common/resource.h"
-
 #include "common/transform.h"
-#include "common/module.h"
 #include "common/camera.h"
 #include "common/light.h"
 #include "common/model.h"

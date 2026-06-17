@@ -20,7 +20,7 @@ void ResourceManager::shutdown()
 
 void ResourceManager::interface_window()
 {
-    ImGui::BeginTable("Module", 3, ImGuiTableColumnFlags_NoResize | ImGuiTableFlags_SizingFixedFit);
+    ImGui::BeginTable("Module##2", 3, ImGuiTableColumnFlags_NoResize | ImGuiTableFlags_SizingFixedFit);
     ImGui::TableSetupColumn("Type");
     ImGui::TableSetupColumn("Name");
     ImGui::TableSetupColumn("Use Count");

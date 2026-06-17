@@ -18,6 +18,7 @@ public:
 	void register_interface(std::shared_ptr<EditorInterface> _interface);
 	void interface_components();
 
+	bool manual_interface{ false };
 protected:
 	void clean_up();
 

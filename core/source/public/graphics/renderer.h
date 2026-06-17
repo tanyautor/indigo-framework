@@ -1,7 +1,7 @@
 #pragma once
 
 
-class Renderer
+class Renderer : public Module
 {
 public:
 	Renderer();
@@ -25,13 +25,16 @@ public:
 		end_frame();
 	}
 
-	void tick(float _delta)
+	virtual void tick(float _delta) override
 	{
 		for (const auto& subsystem : subsystems)
 		{
 			subsystem->tick(_delta);
 		}
 	}
+
+	virtual const std::string& get_title() override { return name; }
+	virtual void interface_window() override;
 
 	std::shared_ptr<Framebuffer> get_default_framebuffer();
 	void bind_default_framebuffer();

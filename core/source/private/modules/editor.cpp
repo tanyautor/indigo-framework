@@ -79,6 +79,10 @@ void Editor::tick(float _delta)
 
         if (ImGui::BeginMenu("File"))
         {
+            ImGui::MenuItem("Save", nullptr); // TODO
+            ImGui::MenuItem("Load", nullptr); // TODO
+            ImGui::MenuItem("Package", nullptr); // TODO
+            ImGui::EndMenu();
         }
 
         if (ImGui::BeginMenu("Modules"))
@@ -116,9 +120,9 @@ void Editor::tick(float _delta)
 
     // Special Cases
     // Modules
-    {
-        ImGui::Begin("Modules");
-        ImGui::BeginTable("Module", 2, ImGuiTableColumnFlags_NoResize | ImGuiTableFlags_SizingFixedFit);
+    if(ImGui::Begin("Modules"))
+    {    
+        ImGui::BeginTable("Module##1", 2, ImGuiTableColumnFlags_NoResize | ImGuiTableFlags_SizingFixedFit);
         ImGui::TableSetupColumn("Name");
         ImGui::TableSetupColumn("Use Count");
         ImGui::TableHeadersRow();
@@ -132,19 +136,26 @@ void Editor::tick(float _delta)
             ImGui::Text(std::to_string(window.use_count()).c_str());
         }
         ImGui::EndTable();
-        ImGui::End();
     }
-        ImGui::End();
+    ImGui::End();
+    ImGui::End();
 
     // Render Interfaces
     for (auto window : registered_windows)
     {
-        ImGui::Begin(window->get_title().c_str());
-
-        // should loop through its registered_interfaces
-        window->interface_window();
-
-        ImGui::End();
+        if (!manual_interface)
+        {
+            if (ImGui::Begin(window->get_title().c_str()))
+            {
+                // should loop through its registered_interfaces
+                window->interface_window();
+            }
+            ImGui::End();
+        }
+        else
+        {
+            window->interface_window();
+        }
     }
 
     ImGui::Render();

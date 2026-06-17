@@ -7,8 +7,10 @@ struct Renderer::Impl
 };
 
 // device specific definitions
-Renderer::Renderer()
+Renderer::Renderer() :  Module()
 {
+    name = "Renderer";
+    manual_interface = true;
 
     default_framebuffer = std::make_shared<Framebuffer>("Viewport");
     default_framebuffer->init_color_buffer(GL_TEXTURE_2D);
@@ -27,6 +29,41 @@ Renderer::~Renderer()
     }
 
     bool empty = subsystems.empty();
+}
+
+void Renderer::interface_window()
+{
+    ImVec4* colors = ImGui::GetStyle().Colors;
+    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.0f, 0.0f });
+    ImGui::Begin(get_title().c_str(), nullptr, ImGuiWindowFlags_NoScrollbar);
+
+    // resize viewport if needed
+    float width = ImGui::GetWindowWidth();
+    float height = ImGui::GetWindowHeight();
+    auto window = engine.get_window();
+    if ((uint32)width != default_framebuffer->width || (uint32)height != default_framebuffer->height)
+    {
+        window->resize_viewport((uint32)width, (uint32)height);
+    }
+    const auto lm = static_cast<uint64>(default_framebuffer->fbo);
+    ImGui::SetCursorPos(ImVec2(0.0f, 0.0f));
+    ImGui::Image(lm, ImVec2(width, height), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+
+    auto btnColor = colors[ImGuiCol_Button];
+    btnColor.w *= 0.4f;
+    const float UIScale = 1.0f;  // Game.Device().GetMonitorUIScale();
+    const auto s = ImGui::GetIO().FontGlobalScale * UIScale;
+    const ImVec2 btnSize(24.0f * s, 24.0f * s);
+    ImGui::SetCursorPos(ImVec2(6.0f, 6.0f));
+    ImGui::PushStyleColor(ImGuiCol_Button, btnColor);
+
+    ImGui::PopStyleColor();
+
+    ImGui::End();
+    ImGui::PopStyleColor(2);
+    ImGui::PopStyleVar();
 }
 
 std::shared_ptr<Framebuffer> Renderer::get_default_framebuffer()

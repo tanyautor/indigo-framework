@@ -7,7 +7,8 @@ void Engine::init()
 {
 	window = std::make_shared<Window>(1280, 768, "bomb voyage stole me wallet >:(", false);
 	file_io = std::make_shared<FileIO>();
-	renderer = std::make_shared<Renderer>();
+	register_module<Renderer>();
+	renderer = get_module<Renderer>();
 	active_camera = std::make_shared<Camera>();
 
 	register_module<ResourceManager>();

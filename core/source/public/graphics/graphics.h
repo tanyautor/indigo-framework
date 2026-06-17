@@ -1,7 +1,5 @@
 #pragma once
 
-
-// TODO: this cannot be resized yet, so please for the love of all that is holy!!!!
 struct Framebuffer
 {
 	Framebuffer(const char* rdg_label = nullptr);
@@ -49,6 +47,7 @@ public:
 	void begin_frame();
 	void end_frame();
 
+	void resize_viewport(uint32 _width, uint32 _height);
 	std::vector<std::shared_ptr<Framebuffer>> viewports;
 
 private:
