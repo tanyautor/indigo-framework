@@ -45,7 +45,9 @@
 #include "glm/gtc/matrix_inverse.hpp"
 #include "glm/gtx/quaternion.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include <glm/gtx/euler_angles.hpp>
+#include "glm/gtx/euler_angles.hpp"
+using namespace glm;
+
 
 // stb_image :)
 // defines in precomp_impls.cpp
@@ -56,19 +58,15 @@
 // defines in precomp_impls.cpp
 #include "tinyobjloader/tiny_obj_loader.h"
 
+
 // utils
 #include "common.h"
 #include "utils/types.h"
 #include "utils/log.h"
+using namespace indigo_log;
 #include "utils/timer.h"
 #include "utils/file_handler.h"
 
-// framework namespaces
-#ifdef INDIGO
-using namespace glm;
-using namespace indigo_log;
-
-#endif // INDIGO
 
 // graphics
 #include "graphics/shader.h"
